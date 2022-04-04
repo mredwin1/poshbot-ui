@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 
 class PoshUser extends Component {
   handleImgClick = (url) => {
@@ -22,26 +23,32 @@ class PoshUser extends Component {
     const poshUserClosetUrl = `https://poshmark.com/closet/${username}`;
 
     return (
-      <div className="col-3 mb-3">
-        <div className="card">
-          <img
+      <div className="mb-3">
+        <Card className="card">
+          <Card.Img
+            variant="top"
             src={profilePictureUrl}
-            alt=""
-            className="card-img-top pe-auto"
             style={{ cursor: 'pointer' }}
             onClick={() => this.handleImgClick(poshUserClosetUrl)}
-          />
-          <div className="card-body">
-            <div className="d-flex justify-content-between">
-              <h5 className="card-title">
-                {firstName} {lastName}
-              </h5>
-              <i
-                className="bi bi-trash"
-                style={{ cursor: 'pointer' }}
-                onClick={() => onDelete(id)}
-              ></i>
-            </div>
+          ></Card.Img>
+          <Card.Body>
+            <Row
+              style={{ justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <Col>
+                <h5 className="card-title">
+                  {firstName} {lastName}
+                </h5>
+              </Col>
+              <Col xs={2}>
+                <i
+                  className="bi bi-trash"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => onDelete(id)}
+                ></i>
+              </Col>
+            </Row>
+            <hr className="m-0" />
             <div>
               <b>Email:</b> {email}
             </div>
@@ -60,8 +67,8 @@ class PoshUser extends Component {
             <div>
               <b>Sales:</b> {sales}
             </div>
-          </div>
-        </div>
+          </Card.Body>
+        </Card>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getPoshUsers } from '../samples.js';
 import PoshUser from './poshUser.jsx';
+import { Col, Row } from 'react-bootstrap';
 
 class PoshUsers extends Component {
   state = {
@@ -31,23 +32,23 @@ class PoshUsers extends Component {
     const { poshUsers, search } = this.state;
     return (
       <React.Fragment>
-        <div className="row align-items-center justify-content-between">
-          <div className="col-3">
+        <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <Col xs={12} md={7} lg={8}>
             <h1>{poshUsers.length} Posh Users</h1>
-          </div>
-          <div className="col-3">
+          </Col>
+          <Col xs={12} md={5} lg={4}>
             <input
-              className="form-control col-6 mr-2 ml-2"
+              className="form-control"
               type="text"
-              placeholder="Search by Username/Name"
+              placeholder="Search by Username/Name/Email"
               name="search"
               onChange={(event) => this.handleSearch(event.target.value)}
               value={search}
             ></input>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <hr className="mt-2" />
-        <div className="row">
+        <Row xs={12} md={2} lg={3} xl={4}>
           {poshUsers.map((poshUser) => (
             <PoshUser
               key={poshUser.id}
@@ -55,7 +56,7 @@ class PoshUsers extends Component {
               onDelete={this.handleDelete}
             ></PoshUser>
           ))}
-        </div>
+        </Row>
       </React.Fragment>
     );
   }
