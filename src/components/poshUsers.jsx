@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { getPoshUsers } from '../samples.js';
 import PoshUser from './poshUser.jsx';
+import CustomPagination from './common/CustomPagination.jsx';
+import { paginate } from '../utils/paginate.js';
 import {
   Col,
   Row,
@@ -14,11 +16,17 @@ class PoshUsers extends Component {
   state = {
     poshUsers: [],
     search: '',
+    pageSize: 12,
+    currentPage: 1,
   };
 
   componentDidMount() {
     this.setState({ poshUsers: getPoshUsers() });
   }
+
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
+  };
 
   handleImgClick = (url) => {
     window.open(url);
@@ -40,8 +48,10 @@ class PoshUsers extends Component {
   };
 
   render() {
-    const { poshUsers, search } = this.state;
+    const { search, pageSize, currentPage, poshUsers } = this.state;
     const { onShow } = this.props;
+
+    const paginatedPoshUsers = paginate(poshUsers, currentPage, pageSize);
     return (
       <React.Fragment>
         <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
@@ -80,7 +90,7 @@ class PoshUsers extends Component {
         </Row>
         <hr className="mt-2" />
         <Row xs={12} md={2} lg={3} xl={4}>
-          {poshUsers.map((poshUser) => (
+          {paginatedPoshUsers.map((poshUser) => (
             <PoshUser
               key={poshUser.id}
               {...poshUser}
@@ -88,6 +98,16 @@ class PoshUsers extends Component {
               onImgClick={this.handleImgClick}
             ></PoshUser>
           ))}
+        </Row>
+        <Row style={{ justifyContent: 'center' }}>
+          <Col xs={11} sm={3} md={4} style={{ justifyContent: 'center' }}>
+            <CustomPagination
+              itemsCount={poshUsers.length}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={this.handlePageChange}
+            ></CustomPagination>
+          </Col>
         </Row>
       </React.Fragment>
     );
