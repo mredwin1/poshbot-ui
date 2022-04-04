@@ -41,13 +41,14 @@ class PoshUsers extends Component {
 
   render() {
     const { poshUsers, search } = this.state;
+    const { onShow } = this.props;
     return (
       <React.Fragment>
         <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Col xs={9} md={6} lg={7}>
             <h1>{poshUsers.length} Posh Users</h1>
           </Col>
-          <Col xs={3} md={1} className="text-end">
+          <Col xs={3} md={1} className="text-end" onClick={onShow}>
             <OverlayTrigger
               key="top"
               placement="top"
