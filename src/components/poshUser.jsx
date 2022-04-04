@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import React from 'react';
+import { Card, Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const PoshUser = ({
   email,
@@ -36,11 +36,17 @@ const PoshUser = ({
               </h5>
             </Col>
             <Col xs={2}>
-              <i
-                className="bi bi-trash"
-                style={{ cursor: 'pointer' }}
-                onClick={() => onDelete(id)}
-              ></i>
+              <OverlayTrigger
+                key="top"
+                placement="top"
+                overlay={<Tooltip id={`tooltip-top`}>Delete PoshUser</Tooltip>}
+              >
+                <i
+                  className="bi bi-trash"
+                  style={{ cursor: 'pointer', fontSize: '1.2rem' }}
+                  onClick={() => onDelete(id)}
+                ></i>
+              </OverlayTrigger>
             </Col>
           </Row>
           <hr className="m-0" />
