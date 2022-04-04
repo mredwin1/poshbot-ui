@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { getPoshUsers } from '../samples.js';
 import PoshUser from './poshUser.jsx';
-import { Col, Row } from 'react-bootstrap';
+import {
+  Col,
+  Row,
+  InputGroup,
+  FormControl,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap';
 
 class PoshUsers extends Component {
   state = {
@@ -37,8 +44,20 @@ class PoshUsers extends Component {
     return (
       <React.Fragment>
         <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <Col xs={12} md={7} lg={8}>
+          <Col xs={9} md={6} lg={7}>
             <h1>{poshUsers.length} Posh Users</h1>
+          </Col>
+          <Col xs={3} md={1} className="text-end">
+            <OverlayTrigger
+              key="top"
+              placement="top"
+              overlay={<Tooltip id={`tooltip-top`}>Add PoshUser</Tooltip>}
+            >
+              <i
+                className="bi bi-plus-square"
+                style={{ cursor: 'pointer', fontSize: '2rem' }}
+              ></i>
+            </OverlayTrigger>
           </Col>
           <Col xs={12} md={5} lg={4}>
             <InputGroup>
@@ -46,13 +65,16 @@ class PoshUsers extends Component {
                 <i className="bi bi-search"></i>
               </InputGroup.Text>
               <FormControl
-              className="form-control"
-              type="text"
-              placeholder="Search by Username/Name/Email"
-              name="search"
-              onChange={(event) => this.handleSearch(event.target.value)}
-              value={search}
-            ></input>
+                className="form-control"
+                type="text"
+                placeholder="Search by Name/Email"
+                name="search"
+                onChange={(event) => this.handleSearch(event.target.value)}
+                value={search}
+                aria-label="search"
+                aria-describedby="search-icon"
+              />
+            </InputGroup>
           </Col>
         </Row>
         <hr className="mt-2" />
