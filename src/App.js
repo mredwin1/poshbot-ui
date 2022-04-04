@@ -1,11 +1,15 @@
 import React from 'react';
 import PoshUsers from './components/poshUsers.jsx';
+import NavBar from './components/navBar.jsx';
 
 function App() {
   return (
-    <main className="container">
-      <PoshUsers></PoshUsers>
-    </main>
+    <React.Fragment>
+      <NavBar></NavBar>
+      <main className="container" style={{ marginTop: 65 }}>
+        <PoshUsers></PoshUsers>
+      </main>
+    </React.Fragment>
   );
 }
 
