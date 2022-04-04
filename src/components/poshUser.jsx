@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 class PoshUser extends Component {
-  state = {};
-
   handleImgClick = (url) => {
     window.open(url);
   };
