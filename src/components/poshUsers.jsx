@@ -41,7 +41,11 @@ class PoshUsers extends Component {
             <h1>{poshUsers.length} Posh Users</h1>
           </Col>
           <Col xs={12} md={5} lg={4}>
-            <input
+            <InputGroup>
+              <InputGroup.Text id="search-icon">
+                <i className="bi bi-search"></i>
+              </InputGroup.Text>
+              <FormControl
               className="form-control"
               type="text"
               placeholder="Search by Username/Name/Email"
