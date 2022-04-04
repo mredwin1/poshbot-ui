@@ -13,6 +13,10 @@ class PoshUsers extends Component {
     this.setState({ poshUsers: getPoshUsers() });
   }
 
+  handleImgClick = (url) => {
+    window.open(url);
+  };
+
   handleDelete = (poshUserId) => {
     const poshUsers = this.state.poshUsers.filter((u) => u.id !== poshUserId);
     this.setState({ poshUsers });
@@ -54,6 +58,7 @@ class PoshUsers extends Component {
               key={poshUser.id}
               {...poshUser}
               onDelete={this.handleDelete}
+              onImgClick={this.handleImgClick}
             ></PoshUser>
           ))}
         </Row>
