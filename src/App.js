@@ -12,7 +12,7 @@ function App() {
     <React.Fragment>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Posh User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
