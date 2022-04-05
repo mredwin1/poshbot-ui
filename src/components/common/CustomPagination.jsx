@@ -14,7 +14,7 @@ const customPagination = ({
   const pages = _.range(1, pagesCount + 1);
 
   return (
-    <Pagination>
+    <Pagination style={{ justifyContent: 'center' }}>
       {pages.map((page) => (
         <Pagination.Item
           key={page}
