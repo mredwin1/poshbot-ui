@@ -3,6 +3,7 @@ import { getPoshUsers } from '../samples.js';
 import PoshUser from './poshUser.jsx';
 import CustomPagination from './common/CustomPagination.jsx';
 import { paginate } from '../utils/paginate.js';
+import _ from 'lodash';
 import {
   Col,
   Row,
@@ -38,25 +39,32 @@ class PoshUsers extends Component {
   };
 
   handleSearch = (search) => {
-    const poshUsers = getPoshUsers().filter(
-      (u) =>
-        u.email.toLowerCase().includes(search) ||
-        u.firstName.toLowerCase().includes(search) ||
-        u.lastName.toLowerCase().includes(search)
-    );
-    this.setState({ search, poshUsers });
+    this.setState({ search, currentPage: 1 });
   };
 
   render() {
     const { search, pageSize, currentPage, poshUsers } = this.state;
     const { onShow } = this.props;
 
-    const paginatedPoshUsers = paginate(poshUsers, currentPage, pageSize);
+    const filteredPoshUsers = search
+      ? _.filter(
+          poshUsers,
+          (u) =>
+            u.email.toLowerCase().includes(search) ||
+            u.firstName.toLowerCase().includes(search) ||
+            u.lastName.toLowerCase().includes(search)
+        )
+      : poshUsers;
+    const paginatedPoshUsers = paginate(
+      filteredPoshUsers,
+      currentPage,
+      pageSize
+    );
     return (
       <React.Fragment>
         <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Col xs={9} md={6} lg={7}>
-            <h1>{poshUsers.length} Posh Users</h1>
+            <h1>{filteredPoshUsers.length} Posh Users</h1>
           </Col>
           <Col xs={3} md={1} className="text-end" onClick={onShow}>
             <OverlayTrigger
@@ -102,7 +110,7 @@ class PoshUsers extends Component {
         <Row style={{ justifyContent: 'center' }}>
           <Col xs={11} sm={3} md={4} style={{ justifyContent: 'center' }}>
             <CustomPagination
-              itemsCount={poshUsers.length}
+              itemsCount={filteredPoshUsers.length}
               pageSize={pageSize}
               currentPage={currentPage}
               onPageChange={this.handlePageChange}
