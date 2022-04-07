@@ -57,6 +57,7 @@ class PoshUsers extends Component {
         <HeadingBar
           searchPlaceholder="Search by Name/Email"
           title={`${filtered.length} Posh Users`}
+          onSearch={this.handleSearch}
           children={<AddButton message="Add Posh User" />}
         />
         <hr className="mt-2" />
