@@ -1,20 +1,21 @@
 import React from 'react';
 import { Card, Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const PoshUser = ({
-  email,
-  firstName,
-  lastName,
-  id,
-  password,
-  profilePictureUrl,
-  sales,
-  username,
-  phoneNumber,
-  campaignStatus,
-  onDelete,
-  onImgClick,
-}) => {
+const PoshUser = (props) => {
+  const {
+    email,
+    firstName,
+    lastName,
+    id,
+    password,
+    profilePictureUrl,
+    sales,
+    username,
+    phoneNumber,
+    campaignStatus,
+    onDelete,
+    onImgClick,
+  } = props;
   const poshUserClosetUrl = `https://poshmark.com/closet/${username}`;
 
   return (
