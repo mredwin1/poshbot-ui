@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { getPoshUsers } from '../samples.js';
-import PoshUser from '../components/poshUser.jsx';
-import CustomPagination from '../components/common/customPagination.jsx';
+import Grid from '../components/common/grid.jsx';
+import HeadingBar from '../components/common/headingBar.jsx';
+import CustomCard from '../components/common/customCard.jsx';
+import AddButton from '../components/common/addButton.jsx';
 import { paginate } from '../utils/paginate.js';
 import _ from 'lodash';
-import {
-  Col,
-  Row,
-  InputGroup,
-  FormControl,
-  OverlayTrigger,
-  Tooltip,
-} from 'react-bootstrap';
+import PoshUserBody from '../components/poshUserBody.jsx';
 
 class PoshUsers extends Component {
   state = {
@@ -27,10 +22,6 @@ class PoshUsers extends Component {
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
-  };
-
-  handleImgClick = (url) => {
-    window.open(url);
   };
 
   handleDelete = (poshUserId) => {
@@ -63,62 +54,28 @@ class PoshUsers extends Component {
     const poshUsers = paginate(filtered, currentPage, pageSize);
     return (
       <React.Fragment>
-        {' '}
-        <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <Col xs={9} md={6} lg={7}>
-            <h1>{filtered.length} Posh Users</h1>
-          </Col>
-          <Col xs={3} md={1} className="text-end" onClick={onShow}>
-            <OverlayTrigger
-              key="top"
-              placement="top"
-              overlay={<Tooltip id={`tooltip-top`}>Add PoshUser</Tooltip>}
-            >
-              <i
-                className="bi bi-plus-square"
-                style={{ cursor: 'pointer', fontSize: '2rem' }}
-              ></i>
-            </OverlayTrigger>
-          </Col>
-          <Col xs={12} md={5} lg={4}>
-            <InputGroup>
-              <InputGroup.Text id="search-icon">
-                <i className="bi bi-search"></i>
-              </InputGroup.Text>
-              <FormControl
-                className="form-control"
-                type="text"
-                placeholder="Search by Name/Email"
-                name="search"
-                onChange={(event) => this.handleSearch(event.target.value)}
-                value={search}
-                aria-label="search"
-                aria-describedby="search-icon"
-              />
-            </InputGroup>
-          </Col>
-        </Row>
+        <HeadingBar
+          searchPlaceholder="Search by Name/Email"
+          title={`${filtered.length} Posh Users`}
+          children={<AddButton message="Add Posh User" />}
+        />
         <hr className="mt-2" />
-        <Row xs={12} md={2} lg={3} xl={4}>
-          {poshUsers.map((poshUser) => (
-            <PoshUser
+        <Grid
+          currentPage={currentPage}
+          itemsCount={filtered.length}
+          pageSize={pageSize}
+          onPageChange={this.handlePageChange}
+          children={poshUsers.map((poshUser) => (
+            <CustomCard
               key={poshUser.id}
-              {...poshUser}
-              onDelete={this.handleDelete}
-              onImgClick={this.handleImgClick}
-            ></PoshUser>
+              imgSrc={poshUser.profilePictureUrl}
+              imgUrl={poshUser.profileUrl}
+              children={
+                <PoshUserBody {...poshUser} onDelete={this.handleDelete} />
+              }
+            ></CustomCard>
           ))}
-        </Row>
-        <Row style={{ justifyContent: 'center' }}>
-          <Col xs={11} sm={3} md={4} style={{ justifyContent: 'center' }}>
-            <CustomPagination
-              itemsCount={filtered.length}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={this.handlePageChange}
-            ></CustomPagination>
-          </Col>
-        </Row>
+        />
       </React.Fragment>
     );
   }
