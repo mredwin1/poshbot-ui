@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Campaigns from './routes/campaigns';
-import Home from './routes/home';
-import Listings from './routes/listings';
-import PoshUsers from './routes/poshUsers';
+import Campaigns from './routes/campaigns.jsx';
+import Home from './routes/home.jsx';
+import Listings from './routes/listings.jsx';
+import PoshUsers from './routes/poshUsers.jsx';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
