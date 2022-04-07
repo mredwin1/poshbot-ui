@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-// import CustomPagination from './customPagination';
+import CustomPagination from './customPagination';
 
 const Grid = (props) => {
   const { currentPage, itemsCount, pageSize, onPageChange, children } = props;
@@ -11,12 +11,12 @@ const Grid = (props) => {
       </Row>
       <Row style={{ justifyContent: 'center' }}>
         <Col xs={11} sm={3} md={4} style={{ justifyContent: 'center' }}>
-          {/* <CustomPagination
+          <CustomPagination
             itemsCount={itemsCount}
             pageSize={pageSize}
             currentPage={currentPage}
             onPageChange={onPageChange}
-          ></CustomPagination> */}
+          ></CustomPagination>
         </Col>
       </Row>
     </React.Fragment>
