@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getPoshUsers } from '../samples.js';
-import PoshUser from './poshUser.jsx';
-import CustomPagination from './common/customPagination.jsx';
+import PoshUser from '../components/poshUser.jsx';
+import CustomPagination from '../components/common/customPagination.jsx';
 import { paginate } from '../utils/paginate.js';
 import _ from 'lodash';
 import {
@@ -63,6 +63,7 @@ class PoshUsers extends Component {
     const poshUsers = paginate(filtered, currentPage, pageSize);
     return (
       <React.Fragment>
+        {' '}
         <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Col xs={9} md={6} lg={7}>
             <h1>{filtered.length} Posh Users</h1>
