@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getPoshUsers } from '../samples.js';
 import PoshUser from './poshUser.jsx';
-import CustomPagination from './common/CustomPagination.jsx';
+import CustomPagination from './common/customPagination.jsx';
 import { paginate } from '../utils/paginate.js';
 import _ from 'lodash';
 import {
@@ -43,28 +43,29 @@ class PoshUsers extends Component {
   };
 
   render() {
-    const { search, pageSize, currentPage, poshUsers } = this.state;
+    const {
+      search,
+      pageSize,
+      currentPage,
+      poshUsers: allPoshUsers,
+    } = this.state;
     const { onShow } = this.props;
 
-    const filteredPoshUsers = search
+    const filtered = search
       ? _.filter(
-          poshUsers,
+          allPoshUsers,
           (u) =>
             u.email.toLowerCase().includes(search) ||
             u.firstName.toLowerCase().includes(search) ||
             u.lastName.toLowerCase().includes(search)
         )
-      : poshUsers;
-    const paginatedPoshUsers = paginate(
-      filteredPoshUsers,
-      currentPage,
-      pageSize
-    );
+      : allPoshUsers;
+    const poshUsers = paginate(filtered, currentPage, pageSize);
     return (
       <React.Fragment>
         <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Col xs={9} md={6} lg={7}>
-            <h1>{filteredPoshUsers.length} Posh Users</h1>
+            <h1>{filtered.length} Posh Users</h1>
           </Col>
           <Col xs={3} md={1} className="text-end" onClick={onShow}>
             <OverlayTrigger
@@ -98,7 +99,7 @@ class PoshUsers extends Component {
         </Row>
         <hr className="mt-2" />
         <Row xs={12} md={2} lg={3} xl={4}>
-          {paginatedPoshUsers.map((poshUser) => (
+          {poshUsers.map((poshUser) => (
             <PoshUser
               key={poshUser.id}
               {...poshUser}
@@ -110,7 +111,7 @@ class PoshUsers extends Component {
         <Row style={{ justifyContent: 'center' }}>
           <Col xs={11} sm={3} md={4} style={{ justifyContent: 'center' }}>
             <CustomPagination
-              itemsCount={filteredPoshUsers.length}
+              itemsCount={filtered.length}
               pageSize={pageSize}
               currentPage={currentPage}
               onPageChange={this.handlePageChange}
