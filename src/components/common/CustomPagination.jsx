@@ -1,8 +1,9 @@
 import React from 'react';
 import { Pagination } from 'react-bootstrap';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
-const customPagination = ({
+const CustomPagination = ({
   itemsCount,
   pageSize,
   currentPage,
@@ -28,4 +29,11 @@ const customPagination = ({
   );
 };
 
-export default customPagination;
+Pagination.propTypes = {
+  itemsCount: PropTypes.number,
+  pageSize: PropTypes.number,
+  currentPage: PropTypes.number,
+  onPageChange: PropTypes.func,
+};
+
+export default CustomPagination;
