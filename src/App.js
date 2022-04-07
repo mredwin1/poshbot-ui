@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import PoshUsers from './components/poshUsers.jsx';
-import { Navbar, Container, Nav, Modal, Form, Button } from 'react-bootstrap';
+import {
+  Navbar,
+  Container,
+  Nav,
+  Modal,
+  Form,
+  Button,
+  NavDropdown,
+} from 'react-bootstrap';
+import { Outlet, useLocation } from 'react-router-dom';
 
 function App() {
   const [show, setShow] = useState(false);
+  const location = useLocation();
+  console.log(location);
+  const { pathname } = location;
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -41,17 +52,38 @@ function App() {
       </Modal>
       <Navbar bg="dark" fixed="top" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">PoshBot</Navbar.Brand>
+          <Navbar.Brand href="/">PoshBot</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#poshusers">PoshUsers</Nav.Link>
+            <Nav className="justify-content-end" style={{ width: '100%' }}>
+              <Nav.Link
+                href="/posh-users"
+                active={pathname === '/posh-users' ? true : false}
+              >
+                Posh Users
+              </Nav.Link>
+              <Nav.Link
+                href="/listings"
+                active={pathname === '/listings' ? true : false}
+              >
+                Listings
+              </Nav.Link>
+              <Nav.Link
+                href="/campaigns"
+                active={pathname === '/campaigns' ? true : false}
+                className="border-end border-white"
+              >
+                Campaigns
+              </Nav.Link>
+              <NavDropdown title="Account" id="nav-account">
+                <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       <Container style={{ marginTop: 65 }}>
-        <PoshUsers onShow={handleShow}></PoshUsers>
+        <Outlet />
       </Container>
     </React.Fragment>
   );
