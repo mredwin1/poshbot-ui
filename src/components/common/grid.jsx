@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import CustomPagination from './customPagination.jsx';
+import CustomPagination from './customPagination';
 
 const Grid = (props) => {
   const { currentPage, itemsCount, pageSize, onPageChange, children } = props;
