@@ -18,7 +18,7 @@ const PoshUserBody = (props) => {
     <React.Fragment>
       <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Col>
-          <h5 className="card-title">
+          <h5>
             {firstName} {lastName}
           </h5>
         </Col>
