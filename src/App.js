@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
-import {
-  Navbar,
-  Container,
-  Nav,
-  Modal,
-  Form,
-  Button,
-  NavDropdown,
-} from 'react-bootstrap';
+import { Container, Modal, Form, Button } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import NavBar from './components/navBar';
+
+const replaceHashPath = () => {
+  const history = createBrowserHistory();
+  const hash = history.location.hash;
+  if (hash) {
+    const path = hash.replace(/^#/, '');
+    if (path) {
+      history.replace(path);
+    }
+  }
+};
+
+replaceHashPath();
 
 function App() {
   const [show, setShow] = useState(false);
   const location = useLocation();
-  console.log(location);
   const { pathname } = location;
 
   const handleClose = () => setShow(false);
