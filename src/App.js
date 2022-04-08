@@ -50,38 +50,7 @@ function App() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Navbar bg="dark" fixed="top" variant="dark" expand="lg">
-        <Container>
-          <Navbar.Brand href="/">PoshBot</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="justify-content-end" style={{ width: '100%' }}>
-              <Nav.Link
-                href="/posh-users"
-                active={pathname === '/posh-users' ? true : false}
-              >
-                Posh Users
-              </Nav.Link>
-              <Nav.Link
-                href="/listings"
-                active={pathname === '/listings' ? true : false}
-              >
-                Listings
-              </Nav.Link>
-              <Nav.Link
-                href="/campaigns"
-                active={pathname === '/campaigns' ? true : false}
-                className="border-end border-white"
-              >
-                Campaigns
-              </Nav.Link>
-              <NavDropdown title="Account" id="nav-account">
-                <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <NavBar pathname={pathname} />
       <Container style={{ marginTop: 65 }}>
         <Outlet />
       </Container>
