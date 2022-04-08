@@ -26,8 +26,8 @@ class PoshUsers extends Component {
     this.setState({ currentPage: page });
   };
 
-  handleDelete = (poshUserId) => {
-    const poshUsers = this.state.poshUsers.filter((u) => u.id !== poshUserId);
+  handleDelete = (id) => {
+    const poshUsers = this.state.poshUsers.filter((u) => u.id !== id);
     this.setState({ poshUsers });
   };
 
