@@ -2,9 +2,9 @@ import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const AddButton = (props) => {
-  const { message } = props;
+  const { message, onClick } = props;
   return (
-    <React.Fragment>
+    <div onClick={onClick}>
       <OverlayTrigger
         key="top"
         placement="top"
@@ -15,7 +15,7 @@ const AddButton = (props) => {
           style={{ cursor: 'pointer', fontSize: '2rem' }}
         ></i>
       </OverlayTrigger>
-    </React.Fragment>
+    </div>
   );
 };
 
