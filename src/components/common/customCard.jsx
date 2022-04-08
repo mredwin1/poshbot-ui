@@ -9,13 +9,13 @@ class CustomCard extends Component {
   render() {
     const { children, imgSrc, imgUrl } = this.props;
     return (
-      <Col>
-        <Card className="mb-3">
+      <Col className="mb-3">
+        <Card>
           <Card.Img
             variant="top"
             src={imgSrc}
             style={imgUrl ? { cursor: 'pointer' } : {}}
-            onClick={() => this.handleImgClick(imgUrl)}
+            onClick={imgUrl ? () => this.handleImgClick(imgUrl) : null}
           ></Card.Img>
           <Card.Body>{children}</Card.Body>
         </Card>
