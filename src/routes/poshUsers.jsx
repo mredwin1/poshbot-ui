@@ -7,7 +7,8 @@ import HeadingBar from '../components/common/headingBar.jsx';
 import CustomCard from '../components/common/customCard.jsx';
 import AddButton from '../components/common/addButton.jsx';
 import PoshUserBody from '../components/poshUserBody.jsx';
-import { Modal, Form, Button } from 'react-bootstrap';
+import PoshUserForm from '../components/poshUserForm.jsx';
+import { Modal, Button } from 'react-bootstrap';
 
 class PoshUsers extends Component {
   state = {
@@ -35,14 +36,34 @@ class PoshUsers extends Component {
     this.setState({ search, currentPage: 1 });
   };
 
-  handleClose = () => {
-    this.setState({ show: false });
-  };
-
   handleOpen = () => {
     this.setState({ show: true });
   };
 
+  handleClose = () => {
+    this.setState({ show: false });
+  };
+
+  handleAddPoshUser = (email, password) => {
+    const newPoshUser = {
+      id: '5434d901-df7e-4bab-874b-142507b5d201',
+      userId: '9696799f-74e3-4296-b6a4-2236ff35ffce',
+      firstName: 'New',
+      lastName: 'User',
+      email: email,
+      username: 'new_user',
+      password: password,
+      profilePictureUrl:
+        'https://images.unsplash.com/photo-1590076263644-1ab672cf1dea?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=600&ixid=MnwxfDB8MXxyYW5kb218MHx8ZmVtYWxlfHx8fHx8MTY0ODkzMDM0MQ&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600',
+      sales: 2,
+      profileUrl: 'https://poshmark.com/closet/monica_schmi',
+      campaignStatus: 'Not Assigned',
+    };
+    const poshUsers = [...this.state.poshUsers];
+    poshUsers.unshift(newPoshUser);
+
+    this.setState({ poshUsers, currentPage: 1, search: '' });
+  };
   render() {
     const {
       search,
@@ -69,26 +90,21 @@ class PoshUsers extends Component {
             <Modal.Title>Add Posh User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3" controlId="addUserForm.Email">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="name@example.com"
-                  autoFocus
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="addUserForm.Password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" />
-              </Form.Group>
-            </Form>
+            <PoshUserForm
+              onHide={this.handleClose}
+              onAddPoshUser={this.handleAddPoshUser}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={this.handleClose}>
+            <Button
+              variant="primary"
+              type="submit"
+              value="Submit"
+              form="poshUserAddForm"
+            >
               Add
             </Button>
           </Modal.Footer>
