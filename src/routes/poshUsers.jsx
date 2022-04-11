@@ -9,10 +9,15 @@ import AddButton from '../components/common/addButton.jsx';
 import PoshUserBody from '../components/poshUserBody.jsx';
 import PoshUserForm from '../components/poshUserForm.jsx';
 import { Modal, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import {
+  loadPoshUsers,
+  poshUserAdded,
+  poshUserRemoved,
+} from '../store/poshUsers';
 
 class PoshUsers extends Component {
   state = {
-    poshUsers: [],
     search: '',
     pageSize: 12,
     currentPage: 1,
@@ -20,7 +25,7 @@ class PoshUsers extends Component {
   };
 
   componentDidMount() {
-    this.setState({ poshUsers: getPoshUsers() });
+    this.props.loadPoshUsers(getPoshUsers());
   }
 
   handlePageChange = (page) => {
@@ -28,8 +33,7 @@ class PoshUsers extends Component {
   };
 
   handleDelete = (id) => {
-    const poshUsers = this.state.poshUsers.filter((u) => u.id !== id);
-    this.setState({ poshUsers });
+    this.props.poshUserRemoved({ id });
   };
 
   handleSearch = (search) => {
@@ -45,33 +49,14 @@ class PoshUsers extends Component {
   };
 
   handleAddPoshUser = (email, password) => {
-    const newPoshUser = {
-      id: '5434d901-df7e-4bab-874b-142507b5d201',
-      userId: '9696799f-74e3-4296-b6a4-2236ff35ffce',
-      firstName: 'New',
-      lastName: 'User',
-      email: email,
-      username: 'new_user',
-      password: password,
-      profilePictureUrl:
-        'https://images.unsplash.com/photo-1590076263644-1ab672cf1dea?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=600&ixid=MnwxfDB8MXxyYW5kb218MHx8ZmVtYWxlfHx8fHx8MTY0ODkzMDM0MQ&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600',
-      sales: 2,
-      profileUrl: 'https://poshmark.com/closet/monica_schmi',
-      campaignStatus: 'Not Assigned',
-    };
-    const poshUsers = [...this.state.poshUsers];
-    poshUsers.unshift(newPoshUser);
+    this.props.poshUserAdded({ email, password });
 
-    this.setState({ poshUsers, currentPage: 1, search: '' });
+    this.setState({ currentPage: 1, search: '' });
   };
   render() {
-    const {
-      search,
-      pageSize,
-      show,
-      currentPage,
-      poshUsers: allPoshUsers,
-    } = this.state;
+    const { search, pageSize, show, currentPage } = this.state;
+
+    const { poshUsers: allPoshUsers } = this.props;
 
     const filtered = search
       ? _.filter(
@@ -139,4 +124,20 @@ class PoshUsers extends Component {
   }
 }
 
-export default PoshUsers;
+const mapStateToProps = (state) => ({
+  poshUsers: state.entities.poshUsers.list,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadPoshUsers: (payload) => {
+    dispatch(loadPoshUsers(payload));
+  },
+  poshUserAdded: (payload) => {
+    dispatch(poshUserAdded(payload));
+  },
+  poshUserRemoved: (payload) => {
+    dispatch(poshUserRemoved(payload));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PoshUsers);
