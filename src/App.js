@@ -7,19 +7,12 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 
 const store = configureStore();
+const history = createBrowserHistory();
+const path = (/#!(\/.*)$/.exec(location.hash) || [])[1];
 
-const replaceHashPath = () => {
-  const history = createBrowserHistory();
-  const hash = history.location.hash;
-  if (hash) {
-    const path = hash.replace(/^#/, '');
-    if (path) {
-      history.replace(path);
-    }
-  }
-};
-
-replaceHashPath();
+if (path) {
+  history.replace(path);
+}
 
 function App() {
   const location = useLocation();
