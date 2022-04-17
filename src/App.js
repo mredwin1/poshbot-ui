@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 
 const store = configureStore();
 const history = createBrowserHistory();
-const path = (/#!(\/.*)$/.exec(location.hash) || [])[1];
+const path = (/#!(\/.*)$/.exec(history.location.hash) || [])[1];
 
 if (path) {
   history.replace(path);
