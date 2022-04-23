@@ -9,13 +9,26 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import configureStore from './store/configureStore';
-import { poshUserAdded } from './store/poshUsers.js';
 
 const store = configureStore();
 
-store.dispatch(
-  poshUserAdded({ email: 'test@gmail.com', password: 'password' })
-);
+store.dispatch({
+  type: 'user/userLoggedIn',
+  payload: { access: 'd', refresh: 'da' },
+});
+
+// store.dispatch({
+//   type: 'apiCallBegan',
+//   payload: {
+//     url: '/auth/jwt/create',
+//     data: {
+//       username: 'user1',
+//       password: 'Akatt12345',
+//     },
+//     onSuccess: 'user/userLoggedIn',
+//     onError: 'apiRequestFailed',
+//   },
+// });
 
 const container = document.getElementById('root');
 const root = createRoot(container);

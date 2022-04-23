@@ -2,12 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'user',
-  initialState: { accessToken: '', refreshToken: '' },
+  initialState: {},
   reducers: {
     userLoggedIn: (user, action) => {
-      console.log('test');
       user.accessToken = action.payload.access;
       user.refreshToken = action.payload.refresh;
+    },
+    userLoggedOut: (user, action) => {
+      delete user.accessToken;
+      delete user.refreshToken;
     },
   },
 });
