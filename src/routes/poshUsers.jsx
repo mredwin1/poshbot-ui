@@ -10,11 +10,7 @@ import PoshUserBody from '../components/poshUserBody.jsx';
 import PoshUserForm from '../components/poshUserForm.jsx';
 import { Modal, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import {
-  loadPoshUsers,
-  poshUserAdded,
-  poshUserRemoved,
-} from '../store/poshUsers';
+import { poshUserAdded, poshUserRemoved } from '../store/poshUsers';
 
 class PoshUsers extends Component {
   state = {
@@ -130,7 +126,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadPoshUsers: (payload) => {
-    dispatch(loadPoshUsers(payload));
+    // dispatch(loadPoshUsers(payload));
   },
   poshUserAdded: (payload) => {
     dispatch(poshUserAdded(payload));

@@ -30,9 +30,6 @@ const slice = createSlice({
       );
       poshUsers.list.splice(index, 1);
     },
-    loadPoshUsers: (poshUsers, action) => {
-      poshUsers.list = action.payload;
-    },
   },
 });
 
