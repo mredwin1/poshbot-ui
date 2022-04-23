@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { paginate } from '../utils/paginate.js';
-import { getPoshUsers } from '../samples.js';
 import Grid from '../components/common/grid.jsx';
 import HeadingBar from '../components/common/headingBar.jsx';
 import CustomCard from '../components/common/customCard.jsx';
@@ -21,7 +20,7 @@ class PoshUsers extends Component {
   };
 
   componentDidMount() {
-    this.props.loadPoshUsers(getPoshUsers());
+    this.props.loadPoshUsers();
   }
 
   handlePageChange = (page) => {

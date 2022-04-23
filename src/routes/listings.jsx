@@ -6,8 +6,6 @@ import CustomCard from '../components/common/customCard';
 import ListingBody from '../components/listingBody';
 import _ from 'lodash';
 import { paginate } from '../utils/paginate';
-import { getListings } from '../samples';
-
 class Listings extends Component {
   state = {
     listings: [],
@@ -16,9 +14,7 @@ class Listings extends Component {
     currentPage: 1,
   };
 
-  componentDidMount() {
-    this.setState({ listings: getListings() });
-  }
+  componentDidMount() {}
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
