@@ -12,6 +12,7 @@ import configureStore from './store/configureStore';
 import * as actions from './store/api';
 import Login from './routes/login';
 import ProtectedRoute from './components/common/protectedRoute.jsx';
+import Logout from './components/logout';
 
 const store = configureStore();
 
@@ -41,20 +42,21 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="" element={<ProtectedRoute children={<Home />} />}></Route>
+        <Route path="" element={<ProtectedRoute children={<Home />} />} />
         <Route
           path="posh-users"
           element={<ProtectedRoute children={<PoshUsers />} />}
-        ></Route>
+        />
         <Route
           path="listings"
           element={<ProtectedRoute children={<Listings />} />}
-        ></Route>
+        />
         <Route
           path="campaigns"
           element={<ProtectedRoute children={<Campaigns />} />}
-        ></Route>
-        <Route path="login" element={<Login />}></Route>
+        />
+        <Route path="login" element={<Login />} />
+        <Route path="logout" element={<Logout />} />
       </Route>
     </Routes>
   </BrowserRouter>

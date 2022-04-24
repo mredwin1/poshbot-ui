@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
 
 const slice = createSlice({
   name: 'user',
@@ -18,14 +19,14 @@ const slice = createSlice({
       user.refreshToken = action.payload.refresh;
     },
     loggedOut: (user, action) => {
-      user.isAuthenticated = false;
-      user.id = null;
-      user.username = null;
-      user.accessToken = null;
-      user.refreshToken = null;
+      user.isAuthenticated = '';
+      user.id = '';
+      user.username = '';
+      user.accessToken = '';
+      user.refreshToken = '';
     },
   },
 });
 
-export const { userLoggedIn } = slice.actions;
+export const { userLoggedIn, userLoggedOut } = slice.actions;
 export default slice.reducer;
