@@ -4,13 +4,13 @@ import { Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 const PoshUserBody = (props) => {
   const {
     id,
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     email,
     username,
     password,
-    phoneNumber,
-    campaignStatus,
+    phone_number,
+    status,
     sales,
     onDelete,
   } = props;
@@ -19,7 +19,7 @@ const PoshUserBody = (props) => {
       <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Col>
           <h5>
-            {firstName} {lastName}
+            {first_name} {last_name}
           </h5>
         </Col>
         <Col xs={2}>
@@ -47,10 +47,10 @@ const PoshUserBody = (props) => {
         <b>Password:</b> {password}
       </div>
       <div>
-        <b>Phone Number:</b> {phoneNumber}
+        <b>Phone Number:</b> {phone_number}
       </div>
       <div>
-        <b>Status:</b> {campaignStatus}
+        <b>Status:</b> {status}
       </div>
       <div>
         <b>Sales:</b> {sales}

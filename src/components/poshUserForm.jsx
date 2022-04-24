@@ -37,7 +37,8 @@ class PoshUserForm extends Component {
     this.setState({ validated, errors });
     if (validated) {
       const { email, password } = this.state.newPoshUser;
-      this.props.onAddPoshUser(email, password);
+      this.props.poshUserAdded({ email, password });
+
       this.props.onHide();
       this.setState({
         newPoshUser: {

@@ -9,7 +9,7 @@ import PoshUserBody from '../components/poshUserBody.jsx';
 import PoshUserForm from '../components/poshUserForm.jsx';
 import { Modal, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { poshUserAdded, poshUserRemoved } from '../store/poshUsers';
+import { apiCallBegan } from '../store/api.js';
 
 class PoshUsers extends Component {
   state = {
@@ -51,7 +51,7 @@ class PoshUsers extends Component {
   render() {
     const { search, pageSize, show, currentPage } = this.state;
 
-    const { poshUsers: allPoshUsers } = this.props;
+    const { poshUsers: allPoshUsers, poshUserAdded } = this.props;
 
     const filtered = search
       ? _.filter(
@@ -73,6 +73,7 @@ class PoshUsers extends Component {
             <PoshUserForm
               onHide={this.handleClose}
               onAddPoshUser={this.handleAddPoshUser}
+              poshUserAdded={poshUserAdded}
             />
           </Modal.Body>
           <Modal.Footer>
@@ -106,8 +107,8 @@ class PoshUsers extends Component {
           children={poshUsers.map((poshUser) => (
             <CustomCard
               key={poshUser.id}
-              imgSrc={poshUser.profilePictureUrl}
-              imgUrl={poshUser.profileUrl}
+              imgSrc={poshUser.profile_picture}
+              imgUrl={poshUser.profile_url}
               children={
                 <PoshUserBody {...poshUser} onDelete={this.handleDelete} />
               }
@@ -125,13 +126,31 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadPoshUsers: (payload) => {
-    // dispatch(loadPoshUsers(payload));
+    dispatch(
+      apiCallBegan({
+        url: '/posh-users/',
+        onSuccess: 'poshUsers/received',
+      })
+    );
   },
   poshUserAdded: (payload) => {
-    dispatch(poshUserAdded(payload));
+    dispatch(
+      apiCallBegan({
+        url: '/posh-users/',
+        method: 'POST',
+        data: payload,
+        onSuccess: 'poshUsers/added',
+      })
+    );
   },
   poshUserRemoved: (payload) => {
-    dispatch(poshUserRemoved(payload));
+    dispatch(
+      apiCallBegan({
+        url: `/posh-users/${payload.id}/`,
+        method: 'DELETE',
+        onSuccess: 'poshUsers/removed',
+      })
+    );
   },
 });
 
