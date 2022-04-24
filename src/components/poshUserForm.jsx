@@ -18,7 +18,12 @@ class PoshUserForm extends Component {
     password: Joi.string()
       .min(6)
       .regex(/[!@#$%^&*_0-9]/, 'special character or number')
-      .label('Password'),
+      .label('Password')
+      .options({
+        language: {
+          any: { allowOnly: 'must contain a number or special character' },
+        },
+      }),
   };
 
   handleSubmit = (e) => {
