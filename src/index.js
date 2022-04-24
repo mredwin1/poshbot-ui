@@ -10,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import configureStore from './store/configureStore';
 import * as actions from './store/api';
+import Login from './routes/login';
+import ProtectedRoute from './components/common/protectedRoute.jsx';
 
 const store = configureStore();
 
@@ -21,17 +23,17 @@ const store = configureStore();
 //   },
 // });
 
-store.dispatch(
-  actions.apiCallBegan({
-    url: '/auth/jwt/create',
-    method: 'POST',
-    data: {
-      username: 'user1',
-      password: 'Akatt12345',
-    },
-    onSuccess: 'user/loggedIn',
-  })
-);
+// store.dispatch(
+//   actions.apiCallBegan({
+//     url: '/auth/jwt/create',
+//     method: 'POST',
+//     data: {
+//       username: 'user1',
+//       password: 'Akatt12345',
+//     },
+//     onSuccess: 'user/loggedIn',
+//   })
+// );
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -39,10 +41,20 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="" element={<Home />}></Route>
-        <Route path="posh-users" element={<PoshUsers />}></Route>
-        <Route path="listings" element={<Listings />}></Route>
-        <Route path="campaigns" element={<Campaigns />}></Route>
+        <Route path="" element={<ProtectedRoute children={<Home />} />}></Route>
+        <Route
+          path="posh-users"
+          element={<ProtectedRoute children={<PoshUsers />} />}
+        ></Route>
+        <Route
+          path="listings"
+          element={<ProtectedRoute children={<Listings />} />}
+        ></Route>
+        <Route
+          path="campaigns"
+          element={<ProtectedRoute children={<Campaigns />} />}
+        ></Route>
+        <Route path="login" element={<Login />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>

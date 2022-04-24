@@ -41,13 +41,6 @@ const NavBar = (props) => {
             >
               Login
             </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/register"
-              active={pathname === '/register' ? true : false}
-            >
-              Register
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
