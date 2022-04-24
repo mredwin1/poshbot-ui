@@ -16,7 +16,7 @@ const api =
     }
     try {
       const response = await axios.request({
-        baseURL: 'http://localhost:8000',
+        baseURL: 'https://api.poshbot.net',
         url,
         method,
         data,
