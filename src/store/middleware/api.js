@@ -10,7 +10,7 @@ const api =
     const { url, method, data, onSuccess, onError } = action.payload;
     try {
       const response = await axios.request({
-        baseURL: ' http://127.0.0.1:8000',
+        baseURL: 'https://api.poshbot.net',
         url,
         method,
         data,
