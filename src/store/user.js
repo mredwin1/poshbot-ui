@@ -4,11 +4,11 @@ const slice = createSlice({
   name: 'user',
   initialState: {},
   reducers: {
-    userLoggedIn: (user, action) => {
+    loggedIn: (user, action) => {
       user.accessToken = action.payload.access;
       user.refreshToken = action.payload.refresh;
     },
-    userLoggedOut: (user, action) => {
+    loggedOut: (user, action) => {
       delete user.accessToken;
       delete user.refreshToken;
     },
