@@ -16,7 +16,7 @@ const api =
     }
     try {
       const response = await axios.request({
-        baseURL: 'https://api.poshbot.net',
+        baseURL: 'http://localhost:8000',
         url,
         method,
         data,
@@ -24,12 +24,8 @@ const api =
       dispatch(actions.apiCallSuccess(response.data));
       if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
     } catch (error) {
-      console.log(error.response);
-      console.log(error.request);
-      console.log(error.message);
-
-      dispatch(actions.apiCallFailed(error.response));
-      if (onError) dispatch({ type: onError, payload: error.response });
+      dispatch(actions.apiCallFailed(error));
+      if (onError) dispatch({ type: onError, payload: error });
     }
   };
 

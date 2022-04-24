@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
-import { userLoggedOut } from '../store/user';
 import { connect } from 'react-redux';
 
 class Logout extends Component {

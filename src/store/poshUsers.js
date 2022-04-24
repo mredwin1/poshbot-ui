@@ -12,7 +12,7 @@ const slice = createSlice({
       poshUsers.list.unshift(action.payload);
     },
     removed: (poshUsers, action) => {
-      const index = poshUsers.list.indexOf(
+      const index = poshUsers.list.findIndex(
         (poshUser) => poshUser.id === action.payload.id
       );
       poshUsers.list.splice(index, 1);

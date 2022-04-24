@@ -45,7 +45,6 @@ class PoshUsers extends Component {
 
   handleAddPoshUser = (email, password) => {
     this.props.poshUserAdded({ email, password });
-
     this.setState({ currentPage: 1, search: '' });
   };
   render() {

@@ -8,33 +8,10 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import configureStore from './store/configureStore';
-import * as actions from './store/api';
 import Login from './routes/login';
 import ProtectedRoute from './components/common/protectedRoute.jsx';
 import Logout from './components/logout';
-
-const store = configureStore();
-
-// store.dispatch({
-//   type: 'user/userLoggedIn',
-//   payload: {
-//     access: 'user1',
-//     refresh: 'Akatt12345',
-//   },
-// });
-
-// store.dispatch(
-//   actions.apiCallBegan({
-//     url: '/auth/jwt/create',
-//     method: 'POST',
-//     data: {
-//       username: 'user1',
-//       password: 'Akatt12345',
-//     },
-//     onSuccess: 'user/loggedIn',
-//   })
-// );
+import 'react-toastify/dist/ReactToastify.css';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
