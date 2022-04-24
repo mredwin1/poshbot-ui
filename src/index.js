@@ -13,22 +13,18 @@ import configureStore from './store/configureStore';
 const store = configureStore();
 
 store.dispatch({
-  type: 'user/userLoggedIn',
-  payload: { access: 'd', refresh: 'da' },
+  type: 'apiCallBegan',
+  payload: {
+    url: '/auth/jwt/create',
+    method: 'POST',
+    data: {
+      username: 'user1',
+      password: 'Akatt12345',
+    },
+    onSuccess: 'userLoggedIn',
+    onError: 'apiRequestFailed',
+  },
 });
-
-// store.dispatch({
-//   type: 'apiCallBegan',
-//   payload: {
-//     url: '/auth/jwt/create',
-//     data: {
-//       username: 'user1',
-//       password: 'Akatt12345',
-//     },
-//     onSuccess: 'user/userLoggedIn',
-//     onError: 'apiRequestFailed',
-//   },
-// });
 
 const container = document.getElementById('root');
 const root = createRoot(container);
