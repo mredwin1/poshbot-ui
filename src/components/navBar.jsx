@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const NavBar = (props) => {
@@ -31,13 +31,23 @@ const NavBar = (props) => {
               as={Link}
               to="/campaigns"
               active={pathname === '/campaigns' ? true : false}
-              className="border-end border-white"
             >
               Campaigns
             </Nav.Link>
-            <NavDropdown title="Account" id="nav-account">
-              <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link
+              as={Link}
+              to="/login"
+              active={pathname === '/login' ? true : false}
+            >
+              Login
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/register"
+              active={pathname === '/register' ? true : false}
+            >
+              Register
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
