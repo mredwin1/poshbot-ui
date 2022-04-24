@@ -58,8 +58,7 @@ class PoshUsers extends Component {
           allPoshUsers,
           (u) =>
             u.email.toLowerCase().includes(search) ||
-            u.firstName.toLowerCase().includes(search) ||
-            u.lastName.toLowerCase().includes(search)
+            u.username.toLowerCase().includes(search)
         )
       : allPoshUsers;
     const poshUsers = paginate(filtered, currentPage, pageSize);
@@ -91,7 +90,7 @@ class PoshUsers extends Component {
           </Modal.Footer>
         </Modal>
         <HeadingBar
-          searchPlaceholder="Search by Name/Email"
+          searchPlaceholder="Search by Username/Email"
           title={`${filtered.length} Posh Users`}
           onSearch={this.handleSearch}
           children={
