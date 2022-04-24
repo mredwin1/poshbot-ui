@@ -1,18 +1,12 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import NavBar from './components/navBar';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-const store = configureStore();
-// const history = createBrowserHistory();
-// const path = (/#!(\/.*)$/.exec(history.location.hash) || [])[1];
-
-// if (path) {
-//   history.replace(path);
-// }
+const { store, persistor } = configureStore();
 
 function App() {
   const location = useLocation();
@@ -20,10 +14,12 @@ function App() {
 
   return (
     <Provider store={store}>
-      <NavBar pathname={pathname} />
-      <Container style={{ marginTop: 65 }}>
-        <Outlet />
-      </Container>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavBar pathname={pathname} />
+        <Container style={{ marginTop: 65 }}>
+          <Outlet />
+        </Container>
+      </PersistGate>
     </Provider>
   );
 }
