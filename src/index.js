@@ -9,22 +9,29 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import configureStore from './store/configureStore';
+import * as actions from './store/api';
 
 const store = configureStore();
 
-store.dispatch({
-  type: 'apiCallBegan',
-  payload: {
+// store.dispatch({
+//   type: 'user/userLoggedIn',
+//   payload: {
+//     access: 'user1',
+//     refresh: 'Akatt12345',
+//   },
+// });
+
+store.dispatch(
+  actions.apiCallBegan({
     url: '/auth/jwt/create',
     method: 'POST',
     data: {
       username: 'user1',
       password: 'Akatt12345',
     },
-    onSuccess: 'userLoggedIn',
-    onError: 'apiRequestFailed',
-  },
-});
+    onSuccess: 'user/loggedIn',
+  })
+);
 
 const container = document.getElementById('root');
 const root = createRoot(container);
