@@ -28,7 +28,7 @@ class PoshUsers extends Component {
   };
 
   handleDelete = (id) => {
-    this.props.poshUserRemoved({ id });
+    this.props.removePoshUser({ id });
   };
 
   handleSearch = (search) => {
@@ -44,7 +44,7 @@ class PoshUsers extends Component {
   };
 
   handleAddPoshUser = (email, password) => {
-    this.props.poshUserAdded({ email, password });
+    this.props.addPoshUser({ email, password });
     this.setState({ currentPage: 1, search: '' });
   };
   render() {
@@ -131,7 +131,7 @@ const mapDispatchToProps = (dispatch) => ({
       })
     );
   },
-  poshUserAdded: (payload) => {
+  addPoshUser: (payload) => {
     dispatch(
       apiCallBegan({
         url: '/posh-users/',
@@ -141,7 +141,7 @@ const mapDispatchToProps = (dispatch) => ({
       })
     );
   },
-  poshUserRemoved: (payload) => {
+  removePoshUser: (payload) => {
     dispatch(
       apiCallBegan({
         url: `/posh-users/${payload.id}/`,

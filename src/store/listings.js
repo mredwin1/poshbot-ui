@@ -1,37 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let lastId = 0;
-
 const slice = createSlice({
   name: 'listings',
-  initialState: [],
+  initialState: {
+    list: [],
+    loading: false,
+    lastFetch: null,
+  },
   reducers: {
-    listingAdded: (listings, action) => {
-      listings.push({
-        id: ++lastId,
+    added: (listings, action) => {
+      listings.list.push({
+        id: action.payload.id,
         title: action.payload.title,
-        originalPrice: action.payload.originalPrice,
-        listingPrice: action.payload.listingPrice,
+        original_price: action.payload.original_price,
+        listing_price: action.payload.listing_price,
+        lowest_price: action.payload.lowest_price,
         size: action.payload.size,
-        imgUrl:
-          'https://images.unsplash.com/photo-1586527153946-39236c744230?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=600&ixid=MnwxfDB8MXxyYW5kb218MHx8aXRlbXx8fHx8fDE2NDkzOTg0NjU&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600',
+        cover_photo: action.payload.cover_photo,
         brand: action.payload.brand,
+        description: action.payload.description,
+        category: action.payload.category,
+        subcategory: action.payload.subcategory,
       });
     },
-    listingRemoved: (listings, action) => {
-      const index = listings.indexOf(
+    removed: (listings, action) => {
+      const index = listings.list.findIndex(
         (listing) => listing.id === action.payload.id
       );
-      listings.splice(index, 1);
+      listings.list.splice(index, 1);
     },
-    listingUpdated: (listings, action) => {
-      const index = listings.indexOf(
+    updated: (listings, action) => {
+      const index = listings.list.findIndex(
         (listing) => listing.id === action.payload.id
       );
-      listings[index] = action.payload;
+      listings.list[index] = action.payload;
+    },
+    received: (listings, action) => {
+      listings.list = action.payload;
     },
   },
 });
 
-export const { listingAdded, listingRemoved, listingUpdated } = slice.actions;
+export const { added, listingRemoved, listingUpdated } = slice.actions;
 export default slice.reducer;

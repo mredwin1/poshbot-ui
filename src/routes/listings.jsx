@@ -6,23 +6,36 @@ import CustomCard from '../components/common/customCard';
 import ListingBody from '../components/listingBody';
 import _ from 'lodash';
 import { paginate } from '../utils/paginate';
+import { withRouter } from '../components/common/withRoute';
+import { apiCallBegan } from './../store/api';
+import { connect } from 'react-redux';
+
 class Listings extends Component {
   state = {
-    listings: [],
     search: '',
     pageSize: 12,
     currentPage: 1,
   };
 
-  componentDidMount() {}
+  constructor() {
+    super();
+    this.handleAddListing = this.handleAddListing.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.loadListings();
+  }
+
+  handleAddListing = () => {
+    this.props.navigate('/listings/new');
+  };
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
 
   handleDelete = (id) => {
-    const listings = this.state.listings.filter((l) => l.id !== id);
-    this.setState({ listings });
+    this.props.removeListing({ id });
   };
 
   handleSearch = (search) => {
@@ -30,8 +43,8 @@ class Listings extends Component {
   };
 
   render() {
-    const { search, pageSize, currentPage, listings: allListings } = this.state;
-
+    const { search, pageSize, currentPage } = this.state;
+    const { listings: allListings } = this.props;
     const filtered = search
       ? _.filter(allListings, (u) => u.title.toLowerCase().includes(search))
       : allListings;
@@ -42,7 +55,9 @@ class Listings extends Component {
           searchPlaceholder="Search by Title"
           title={`${filtered.length} Listings`}
           onSearch={this.handleSearch}
-          children={<AddButton message="Add Listing" onClick={null} />}
+          children={
+            <AddButton message="Add Listing" onClick={this.handleAddListing} />
+          }
         />
         <hr className="mt-2" />
         <Grid
@@ -53,7 +68,7 @@ class Listings extends Component {
           children={listings.map((listing) => (
             <CustomCard
               key={listing.id}
-              imgSrc={listing.imgUrl}
+              imgSrc={listing.cover_photo}
               children={
                 <ListingBody {...listing} onDelete={this.handleDelete} />
               }
@@ -65,4 +80,28 @@ class Listings extends Component {
   }
 }
 
-export default Listings;
+const mapStateToProps = (state) => ({ listings: state.entities.listings.list });
+
+const mapDispatchToProps = (dispatch) => ({
+  loadListings: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: '/listings/',
+        onSuccess: 'listings/received',
+      })
+    );
+  },
+  removeListing: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: `/listings/${payload.id}/`,
+        method: 'DELETE',
+        onSuccess: 'listings/removed',
+      })
+    );
+  },
+});
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Listings)
+);

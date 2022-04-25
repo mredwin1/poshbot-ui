@@ -20,14 +20,14 @@ class PrivateNavBar extends Component {
             <Nav.Link
               as={Link}
               to="/listings"
-              active={pathname === '/listings' ? true : false}
+              active={pathname.includes('/listings') ? true : false}
             >
               Listings
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/campaigns"
-              active={pathname === '/campaigns' ? true : false}
+              active={pathname.includes('/campaigns') ? true : false}
             >
               Campaigns
             </Nav.Link>

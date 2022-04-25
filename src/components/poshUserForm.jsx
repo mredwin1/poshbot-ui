@@ -84,6 +84,7 @@ class PoshUserForm extends Component {
             placeholder="name@example.com"
             value={newPoshUser.email}
             onChange={this.handleChange}
+            isInvalid={errors.email ? true : false}
             required
             autoFocus
           />

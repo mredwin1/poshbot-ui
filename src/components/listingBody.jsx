@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const ListingBody = (props) => {
-  const { title, id, onDelete, originalPrice, listingPrice, size, brand } =
+  const { title, id, onDelete, original_price, listing_price, size, brand } =
     props;
   return (
     <React.Fragment>
@@ -14,10 +14,10 @@ const ListingBody = (props) => {
       <Row style={{ justifyContent: 'start' }} className="my-1">
         <Col>
           <span style={{ paddingRight: '1rem' }} className="fs-6 fw-bold">
-            {listingPrice}
+            ${listing_price}
           </span>
           <span className="fs-6 text-decoration-line-through">
-            {originalPrice}
+            ${original_price}
           </span>
         </Col>
       </Row>

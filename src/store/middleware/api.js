@@ -14,12 +14,19 @@ const api =
         'Authorization'
       ] = `JWT ${user.accessToken}`;
     }
+    const headers = {
+      'Content-Type':
+        onSuccess === 'listings/added'
+          ? 'multipart/form-data'
+          : 'application/json',
+    };
     try {
       const response = await axios.request({
         baseURL: 'https://api.poshbot.net',
         url,
         method,
         data,
+        headers,
       });
       dispatch(actions.apiCallSuccess(response.data));
       if (onSuccess) dispatch({ type: onSuccess, payload: response.data });

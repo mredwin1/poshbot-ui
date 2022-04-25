@@ -14,6 +14,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { apiCallBegan, apiCallFailed } from './api';
 
 const reducers = combineReducers({
   user: userReducer,
@@ -35,7 +36,16 @@ export default () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
-          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+          ignoredActions: [
+            FLUSH,
+            REHYDRATE,
+            PAUSE,
+            PERSIST,
+            PURGE,
+            REGISTER,
+            apiCallBegan.type,
+            apiCallFailed.type,
+          ],
         },
       }).concat(toast, api),
   });

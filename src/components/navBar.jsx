@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 class NavBar extends Component {
   render() {
-    const { isAuthenticated } = this.props;
-    if (!isAuthenticated) return <PublicNavBar />;
-    return <PrivateNavBar />;
+    const { isAuthenticated, pathname } = this.props;
+    if (!isAuthenticated) return <PublicNavBar pathname={pathname} />;
+    return <PrivateNavBar pathname={pathname} />;
   }
 }
 
