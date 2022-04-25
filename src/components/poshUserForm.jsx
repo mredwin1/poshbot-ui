@@ -111,4 +111,19 @@ class PoshUserForm extends Component {
   }
 }
 
-export default PoshUserForm;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  addPoshUser: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: '/posh-users/',
+        method: 'POST',
+        data: payload,
+        onSuccess: 'poshUsers/added',
+      })
+    );
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PoshUserForm);
