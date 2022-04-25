@@ -41,5 +41,5 @@ const slice = createSlice({
   },
 });
 
-export const { added, listingRemoved, listingUpdated } = slice.actions;
+export const { added, removed, updated, received } = slice.actions;
 export default slice.reducer;

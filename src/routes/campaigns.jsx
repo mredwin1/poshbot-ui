@@ -37,7 +37,7 @@ class Campaign extends Component {
       if (campaign.listings.includes(listing.id)) listings.push(listing);
     });
     if (listings[0]) return listings[0].cover_photo;
-    return campaign.img_url;
+    return `${process.env.PUBLIC_URL}/campaign.jpg`;
   };
 
   handlePageChange = (page) => {

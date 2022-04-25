@@ -131,16 +131,6 @@ const mapDispatchToProps = (dispatch) => ({
       })
     );
   },
-  addPoshUser: (payload) => {
-    dispatch(
-      apiCallBegan({
-        url: '/posh-users/',
-        method: 'POST',
-        data: payload,
-        onSuccess: 'poshUsers/added',
-      })
-    );
-  },
   removePoshUser: (payload) => {
     dispatch(
       apiCallBegan({
