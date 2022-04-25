@@ -14,11 +14,7 @@ class CustomCard extends Component {
           <Card.Img
             variant="top"
             src={imgSrc}
-            style={
-              imgUrl
-                ? { cursor: 'pointer' }
-                : { width: 304, height: 304, objectFit: 'cover' }
-            }
+            style={imgUrl ? { cursor: 'pointer' } : {}}
             onClick={imgUrl ? () => this.handleImgClick(imgUrl) : null}
           ></Card.Img>
           <Card.Body>{children}</Card.Body>
