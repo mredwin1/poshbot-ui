@@ -24,7 +24,7 @@ const slice = createSlice({
       campaigns.list[index] = action.payload;
     },
     received: (campaigns, action) => {
-      campaigns.list = action.payload;
+      campaigns.list = action.payload.results;
     },
   },
 });

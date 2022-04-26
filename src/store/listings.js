@@ -36,7 +36,7 @@ const slice = createSlice({
       listings.list[index] = action.payload;
     },
     received: (listings, action) => {
-      listings.list = action.payload;
+      listings.list = action.payload.results;
     },
   },
 });

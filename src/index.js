@@ -8,11 +8,14 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import 'react-bootstrap-typeahead/css/Typeahead.bs5.css';
 import Login from './routes/login';
 import ProtectedRoute from './components/common/protectedRoute.jsx';
 import Logout from './components/logout';
 import 'react-toastify/dist/ReactToastify.css';
-import ListingAdd from './routes/listingAdd';
+import ListingNew from './routes/listingNew';
+import CampaignNew from './routes/campaignsNew';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -31,11 +34,15 @@ root.render(
         />
         <Route
           path="listings/new"
-          element={<ProtectedRoute children={<ListingAdd />} />}
+          element={<ProtectedRoute children={<ListingNew />} />}
         />
         <Route
           path="campaigns"
           element={<ProtectedRoute children={<Campaigns />} />}
+        />
+        <Route
+          path="campaigns/new"
+          element={<ProtectedRoute children={<CampaignNew />} />}
         />
         <Route path="login" element={<Login />} />
         <Route path="logout" element={<Logout />} />

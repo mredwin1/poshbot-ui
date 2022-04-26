@@ -9,6 +9,10 @@ const api =
     next(action);
     const { url, method, data, onSuccess, onError } = action.payload;
     const { user } = getState();
+    const baseURL =
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.poshbot.net'
+        : 'http://localhost:8000';
     if (user.accessToken) {
       axios.defaults.headers.common[
         'Authorization'
@@ -22,7 +26,7 @@ const api =
     };
     try {
       const response = await axios.request({
-        baseURL: 'https://api.poshbot.net',
+        baseURL: baseURL,
         url,
         method,
         data,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ListingForm from '../components/listingForm';
 
-class ListingAdd extends Component {
+class ListingNew extends Component {
   state = {};
   render() {
     return (
@@ -13,4 +13,4 @@ class ListingAdd extends Component {
   }
 }
 
-export default ListingAdd;
+export default ListingNew;

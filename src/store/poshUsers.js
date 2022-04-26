@@ -18,7 +18,7 @@ const slice = createSlice({
       poshUsers.list.splice(index, 1);
     },
     received: (poshUsers, action) => {
-      poshUsers.list = action.payload;
+      poshUsers.list = action.payload.results;
     },
   },
 });

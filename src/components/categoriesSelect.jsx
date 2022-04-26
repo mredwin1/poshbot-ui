@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormSelect, FormLabel, Col, Form } from 'react-bootstrap';
-import Options from './options';
+import Options from './common/options';
 
 class CategoriesSelect extends Component {
   render() {

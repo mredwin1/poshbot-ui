@@ -28,7 +28,7 @@ class Campaign extends Component {
   }
 
   handleAddCampaign = () => {
-    this.props.navigate('/campaign/new');
+    this.props.navigate('/campaigns/new');
   };
 
   getCoverPhoto = (campaign) => {
