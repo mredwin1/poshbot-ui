@@ -32,6 +32,10 @@ class Campaign extends Component {
     this.props.navigate('/campaigns/new');
   };
 
+  handleEdit = (id) => {
+    this.props.navigate(`/campaigns/${id}`);
+  };
+
   getPoshUser = (id) => {
     return this.props.poshUsers.filter((poshUser) => poshUser.id === id)[0];
   };
@@ -92,6 +96,7 @@ class Campaign extends Component {
                   {...campaign}
                   poshUser={this.getPoshUser(campaign.posh_user)}
                   onDelete={this.handleDelete}
+                  onEdit={this.handleEdit}
                 />
               }
             ></CustomCard>

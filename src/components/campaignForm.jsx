@@ -12,7 +12,7 @@ class CampaignForm extends Component {
   state = {
     newCampaign: {
       mode: '',
-      autorun: false,
+      auto_run: false,
       generate_users: false,
       title: '',
       delay: '',
@@ -26,7 +26,7 @@ class CampaignForm extends Component {
   };
   schema = {
     mode: Joi.string().max(20).required().label('Mode'),
-    autorun: Joi.boolean().required().label('Auto Run'),
+    auto_run: Joi.boolean().required().label('Auto Run'),
     generate_users: Joi.bool().required().label('Generate Users'),
     title: Joi.string().max(30).required().label('Title'),
     delay: Joi.number().min(5).required().label('Delay'),
@@ -43,20 +43,53 @@ class CampaignForm extends Component {
   }
 
   componentDidMount = async () => {
+    const { id } = this.props.params;
     const { poshUsers, listings } = this.props;
 
     const poshUserOptions = poshUsers.filter(
       (poshUser) => poshUser.status === 'Unassigned'
     );
 
-    this.setState({ poshUserOptions, listingOptions: listings });
+    let stateChanges = { poshUserOptions, listingOptions: listings };
+
+    if (id) {
+      stateChanges.newCampaign = this.initializeCampaign(id);
+    }
+
+    this.setState(stateChanges);
   };
 
   navigateToCampaigns = () => {
     this.props.navigate('/campaigns');
   };
 
-  transformToFormData(newListing) {
+  initializeCampaign = (id) => {
+    let campaign = this.props.campaigns.filter(
+      (campaign) => campaign.id === id
+    )[0];
+    const poshUser = this.props.poshUsers.filter(
+      (poshUser) => poshUser.id === campaign.posh_user
+    );
+    const listings = this.props.listings.filter((listing) =>
+      campaign.listings.includes(listing.id)
+    );
+    console.log(campaign);
+    const newCampaign = {
+      mode: Object.keys(this.modeOptionsMapping).find(
+        (key) => this.modeOptionsMapping[key] === campaign.mode
+      ),
+      auto_run: campaign.auto_run,
+      generate_users: campaign.generate_users,
+      title: campaign.title,
+      delay: campaign.delay.toString(),
+      selectedPoshUser: poshUser,
+      selectedListings: listings,
+    };
+    console.log(newCampaign);
+    return newCampaign;
+  };
+
+  transformToFormData = (newListing) => {
     newListing.mode = this.modeOptionsMapping[newListing.mode];
     newListing.posh_user = newListing.selectedPoshUser[0].id;
     newListing.listings = [];
@@ -80,7 +113,7 @@ class CampaignForm extends Component {
       }
     });
     return formData;
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -92,14 +125,21 @@ class CampaignForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
+      const { id } = this.props.params;
       let { newCampaign } = this.state;
       const formData = this.transformToFormData(newCampaign);
-      this.props.campaignAdded(formData);
+
+      if (id) {
+        this.props.campaignUpdated(formData, id);
+      } else {
+        this.props.campaignAdded(formData);
+      }
+
       this.navigateToCampaigns();
       this.setState({
         newCampaign: {
           mode: '',
-          autorun: false,
+          auto_run: false,
           generate_users: false,
           title: '',
           delay: '',
@@ -167,6 +207,7 @@ class CampaignForm extends Component {
 
   render() {
     const { newCampaign, errors, poshUserOptions, listingOptions } = this.state;
+    const { id } = this.props.params;
     const modeOptions = Object.keys(this.modeOptionsMapping);
     return (
       <Form id="listingForm" onSubmit={this.handleSubmit} validated={false}>
@@ -176,8 +217,9 @@ class CampaignForm extends Component {
             <Form.Check
               type="switch"
               label="Auto Run"
-              name="autorun"
-              onClick={this.handleCheckBox}
+              name="auto_run"
+              onChange={this.handleCheckBox}
+              checked={newCampaign.auto_run}
             />
           </Col>
           <Col xs={2}>
@@ -186,7 +228,8 @@ class CampaignForm extends Component {
               type="switch"
               label="Generate Users"
               name="generate_users"
-              onClick={this.handleCheckBox}
+              onChange={this.handleCheckBox}
+              checked={newCampaign.generate_users}
             />
           </Col>
         </Row>
@@ -261,7 +304,7 @@ class CampaignForm extends Component {
               onChange={this.handleListingSelect}
               options={listingOptions}
               placeholder="Choose Listings..."
-              selected={newCampaign.listings}
+              selected={newCampaign.selectedListings}
             />
           </Col>
           <Form.Control.Feedback type="invalid">
@@ -269,7 +312,7 @@ class CampaignForm extends Component {
           </Form.Control.Feedback>
         </Row>
         <Button variant="primary" type="submit">
-          Add
+          Save
         </Button>
       </Form>
     );
@@ -279,6 +322,7 @@ class CampaignForm extends Component {
 const mapStateToProps = (state) => ({
   poshUsers: state.entities.poshUsers.list,
   listings: state.entities.listings.list,
+  campaigns: state.entities.campaigns.list,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -289,6 +333,16 @@ const mapDispatchToProps = (dispatch) => ({
         method: 'POST',
         data: payload,
         onSuccess: 'campaigns/added',
+      })
+    );
+  },
+  campaignUpdated: (payload, id) => {
+    dispatch(
+      apiCallBegan({
+        url: `/campaigns/${id}/`,
+        method: 'PUT',
+        data: payload,
+        onSuccess: 'campaigns/updated',
       })
     );
   },

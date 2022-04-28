@@ -9,7 +9,7 @@ class CampaignBody extends Component {
   };
 
   render() {
-    const { title, id, status, poshUser, onDelete } = this.props;
+    const { title, id, status, poshUser, onDelete, onEdit } = this.props;
     return (
       <>
         <Row>
@@ -74,7 +74,7 @@ class CampaignBody extends Component {
               <i
                 className="bi bi-pen"
                 style={{ cursor: 'pointer', fontSize: '1.2rem' }}
-                onClick={() => {}}
+                onClick={() => onEdit(id)}
               ></i>
             </OverlayTrigger>
           </Col>

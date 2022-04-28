@@ -16,6 +16,7 @@ import Logout from './components/logout';
 import 'react-toastify/dist/ReactToastify.css';
 import ListingNew from './routes/listingNew';
 import CampaignNew from './routes/campaignsNew';
+import CampaignEdit from './routes/campaignEdit';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -43,6 +44,10 @@ root.render(
         <Route
           path="campaigns/new"
           element={<ProtectedRoute children={<CampaignNew />} />}
+        />
+        <Route
+          path="campaigns/:id"
+          element={<ProtectedRoute children={<CampaignEdit />} />}
         />
         <Route path="login" element={<Login />} />
         <Route path="logout" element={<Logout />} />
