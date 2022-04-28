@@ -50,7 +50,12 @@ class CampaignForm extends Component {
       (poshUser) => poshUser.status === 'Unassigned'
     );
 
-    let stateChanges = { poshUserOptions, listingOptions: listings };
+    const listingOptions = listings.map((listing) => ({
+      ...listing,
+      titleSize: `${listing.title} (${listing.size})`,
+    }));
+
+    let stateChanges = { poshUserOptions, listingOptions };
 
     if (id) {
       stateChanges.newCampaign = this.initializeCampaign(id);
@@ -70,10 +75,14 @@ class CampaignForm extends Component {
     const poshUser = this.props.poshUsers.filter(
       (poshUser) => poshUser.id === campaign.posh_user
     );
-    const listings = this.props.listings.filter((listing) =>
+    let listings = this.props.listings.filter((listing) =>
       campaign.listings.includes(listing.id)
     );
-    console.log(campaign);
+    listings = listings.map((listing) => ({
+      ...listing,
+      titleSize: `${listing.title} (${listing.size})`,
+    }));
+    console.log(listings);
     const newCampaign = {
       mode: Object.keys(this.modeOptionsMapping).find(
         (key) => this.modeOptionsMapping[key] === campaign.mode
@@ -85,7 +94,6 @@ class CampaignForm extends Component {
       selectedPoshUser: poshUser,
       selectedListings: listings,
     };
-    console.log(newCampaign);
     return newCampaign;
   };
 
@@ -300,7 +308,7 @@ class CampaignForm extends Component {
             <Typeahead
               multiple
               id="listing-select"
-              labelKey="title"
+              labelKey="titleSize"
               onChange={this.handleListingSelect}
               options={listingOptions}
               placeholder="Choose Listings..."
