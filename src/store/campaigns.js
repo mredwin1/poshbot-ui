@@ -41,5 +41,6 @@ const slice = createSlice({
   },
 });
 
-export const { added, removed, updated, received } = slice.actions;
+export const { added, removed, updated, received, started, stopped } =
+  slice.actions;
 export default slice.reducer;

@@ -214,7 +214,6 @@ class CampaignForm extends Component {
 
   render() {
     const { newCampaign, errors, poshUserOptions, listingOptions } = this.state;
-    const { id } = this.props.params;
     const modeOptions = Object.keys(this.modeOptionsMapping);
     return (
       <Form id="listingForm" onSubmit={this.handleSubmit} validated={false}>
