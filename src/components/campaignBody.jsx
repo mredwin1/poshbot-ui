@@ -74,7 +74,7 @@ class CampaignBody extends Component {
               <i
                 className="bi bi-pen"
                 style={{ cursor: 'pointer', fontSize: '1.2rem' }}
-                onClick={() => onDelete(id)}
+                onClick={() => {}}
               ></i>
             </OverlayTrigger>
           </Col>
