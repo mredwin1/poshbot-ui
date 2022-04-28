@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from '../components/common/withRoute';
 import Autocomplete from './common/autocomplete';
 import axios from 'axios';
+import Select from './common/select';
 
 const Joi = require('joi-browser');
 
@@ -17,11 +18,14 @@ class CampaignForm extends Component {
       title: '',
       delay: '',
       posh_user: '',
+      listing: '',
       listings: [],
     },
     validated: false,
-    isLoading: false,
-    options: [],
+    isLoadingPoshUsers: false,
+    poshUserOptions: [],
+    isLoadingListings: false,
+    listingOptions: [],
     errors: {},
   };
   schema = {
@@ -34,7 +38,9 @@ class CampaignForm extends Component {
     posh_user: Joi.any().label('Posh User'),
     listings: Joi.any().label('Description'),
   };
-
+  modeOptionsMapping = {
+    'Advanced Sharing': 0,
+  };
   constructor() {
     super();
     this.navigateToCampaigns = this.navigateToCampaigns.bind(this);
@@ -52,8 +58,7 @@ class CampaignForm extends Component {
     this.setState({ newCampaign });
   };
 
-  handleSearch = async (query) => {
-    this.setState({ isLoading: true });
+  handleSearch = async (query, endpoint) => {
     const { user } = this.props;
     const baseURL =
       process.env.NODE_ENV === 'production'
@@ -61,14 +66,26 @@ class CampaignForm extends Component {
         : 'http://localhost:8000';
     try {
       const response = await axios.get(
-        `${baseURL}/posh-users/?search=${query}&limit=5&offset=0&unassigned=true`,
+        `${baseURL}${endpoint}?search=${query}&limit=5&offset=0&unassigned=true`,
         { headers: { Authorization: `JWT ${user.accessToken}` } }
       );
       const options = response.data.results;
-      this.setState({ isLoading: false, options });
+      return options;
     } catch (error) {
       console.log(error.response);
     }
+  };
+
+  handlePoshUserSearch = async (query) => {
+    this.setState({ isLoadingPoshUsers: true });
+    const poshUserOptions = await this.handleSearch(query, '/posh-users/');
+    this.setState({ isLoadingPoshUsers: false, poshUserOptions });
+  };
+
+  handleListingSearch = async (query) => {
+    this.setState({ isLoadingListings: true });
+    const listingOptions = await this.handleSearch(query, '/listings/');
+    this.setState({ isLoadingListings: false, listingOptions });
   };
 
   transformToFormData(newCampaign) {
@@ -93,6 +110,15 @@ class CampaignForm extends Component {
 
     return formData;
   }
+
+  handleAddListing = () => {
+    const { newCampaign } = this.state;
+    newCampaign.listings.push(
+      this.props.listings.filter(
+        (listing) => listing.id === newCampaign.listing
+      )[0]
+    );
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -146,18 +172,54 @@ class CampaignForm extends Component {
     this.setState({ newCampaign });
   };
 
+  handleCheckBox = ({ currentTarget: checkbox }) => {
+    const newCampaign = { ...this.state.newCampaign };
+
+    if (newCampaign[checkbox.name] === false) {
+      newCampaign[checkbox.name] = true;
+    } else {
+      newCampaign[checkbox.name] = false;
+    }
+
+    this.setState({ newCampaign });
+  };
+
+  handleItemSelect = (event, item, name) => {
+    const newCampaign = { ...this.state.newCampaign };
+    newCampaign[name] = item.id;
+    this.setState({ newCampaign });
+  };
+
   render() {
-    const { newCampaign, errors, isLoading, options } = this.state;
+    const {
+      newCampaign,
+      errors,
+      isLoadingPoshUsers,
+      poshUserOptions,
+      listingOptions,
+      isLoadingListings,
+    } = this.state;
+    const modeOptions = Object.keys(this.modeOptionsMapping);
     return (
       <Form id="listingForm" onSubmit={this.handleSubmit} validated={false}>
         <Row style={{ justifyContent: 'end' }}>
           <Col xs={2}>
             <Form.Label></Form.Label>
-            <Form.Check type="checkbox" label="Auto Run" />
+            <Form.Check
+              type="switch"
+              label="Auto Run"
+              name="autorun"
+              onClick={this.handleCheckBox}
+            />
           </Col>
           <Col xs={2}>
             <Form.Label></Form.Label>
-            <Form.Check type="checkbox" label="Generate Users" />
+            <Form.Check
+              type="switch"
+              label="Generate Users"
+              name="generate_users"
+              onClick={this.handleCheckBox}
+            />
           </Col>
         </Row>
         <Row className="mb-3">
@@ -182,26 +244,26 @@ class CampaignForm extends Component {
           <Col xs={4}>
             <Form.Label>Posh User</Form.Label>
             <Autocomplete
-              onSearch={this.handleSearch}
-              isLoading={isLoading}
-              options={options}
+              onSearch={this.handlePoshUserSearch}
+              onItemSelect={this.handleItemSelect}
+              isLoading={isLoadingPoshUsers}
+              options={poshUserOptions}
+              placeholder="Search for a Posh User..."
+              id="posh-user-autocomplete"
+              name="posh_user"
+              displayField="username"
+              imgField="profile_picture"
             ></Autocomplete>
           </Col>
           <Col xs={4}>
-            <Form.Label>Mode</Form.Label>
-            <Form.Control
-              type="text"
+            <Select
+              label="Mode"
               name="mode"
-              maxLength="50"
+              onChange={this.handleSelect}
+              errors={errors}
               value={newCampaign.mode}
-              onChange={this.handleChange}
-              isInvalid={errors.mode ? true : false}
-              required
-              autoFocus
+              options={modeOptions}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.mode}
-            </Form.Control.Feedback>
           </Col>
           <Col xs={4}>
             <Form.Label>Delay</Form.Label>
@@ -220,7 +282,30 @@ class CampaignForm extends Component {
             </Form.Control.Feedback>
           </Col>
         </Row>
-
+        <Row className="mb-3">
+          <Col>
+            <Autocomplete
+              onSearch={this.handleListingSearch}
+              onItemSelect={this.handleItemSelect}
+              isLoading={isLoadingListings}
+              options={listingOptions}
+              placeholder="Search for a Listing..."
+              id="listing-auto-complete"
+              name="listing"
+              displayField="title"
+              imgField="cover_photo"
+            ></Autocomplete>
+          </Col>
+          <Col>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={this.handleAddListing}
+            >
+              Add Listing
+            </Button>
+          </Col>
+        </Row>
         <Button variant="primary" type="submit">
           Add
         </Button>
@@ -229,7 +314,10 @@ class CampaignForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ user: state.user });
+const mapStateToProps = (state) => ({
+  user: state.user,
+  listings: state.entities.listings.list,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   campaignAdded: (payload) => {

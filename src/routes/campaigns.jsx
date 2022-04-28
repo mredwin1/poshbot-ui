@@ -25,10 +25,15 @@ class Campaign extends Component {
   componentDidMount() {
     this.props.loadListings();
     this.props.loadCampaigns();
+    this.props.loadPoshUsers();
   }
 
   handleAddCampaign = () => {
     this.props.navigate('/campaigns/new');
+  };
+
+  getPoshUser = (id) => {
+    return this.props.poshUsers.filter((poshUser) => poshUser.id === id)[0];
   };
 
   getCoverPhoto = (campaign) => {
@@ -83,7 +88,11 @@ class Campaign extends Component {
               key={campaign.id}
               imgSrc={this.getCoverPhoto(campaign)}
               children={
-                <CampaignBody {...campaign} onDelete={this.handleDelete} />
+                <CampaignBody
+                  {...campaign}
+                  poshUser={this.getPoshUser(campaign.posh_user)}
+                  onDelete={this.handleDelete}
+                />
               }
             ></CustomCard>
           ))}
@@ -96,6 +105,7 @@ class Campaign extends Component {
 const mapStateToProps = (state) => ({
   campaigns: state.entities.campaigns.list,
   listings: state.entities.listings.list,
+  poshUsers: state.entities.poshUsers.list,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -121,6 +131,14 @@ const mapDispatchToProps = (dispatch) => ({
       apiCallBegan({
         url: '/listings/',
         onSuccess: 'listings/received',
+      })
+    );
+  },
+  loadPoshUsers: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: '/posh-users/',
+        onSuccess: 'poshUsers/received',
       })
     );
   },

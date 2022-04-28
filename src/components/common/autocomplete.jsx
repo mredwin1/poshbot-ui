@@ -2,22 +2,33 @@ import React from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 const Autocomplete = (props) => {
-  const { isLoading, options, onSearch } = props;
+  const {
+    isLoading,
+    options,
+    onSearch,
+    placeholder,
+    id,
+    name,
+    onItemSelect,
+    displayField,
+    imgField,
+  } = props;
 
   return (
     <AsyncTypeahead
       filterBy={() => true}
       isLoading={isLoading}
-      labelKey="username"
+      id={id}
+      labelKey={displayField}
       minLength={3}
       onSearch={onSearch}
       options={options}
-      placeholder="Search for a Posh User..."
+      placeholder={placeholder}
       renderMenuItemChildren={(option) => (
-        <React.Fragment>
+        <div onClick={(event) => onItemSelect(event, option, name)}>
           <img
             alt=""
-            src={option.profile_picture}
+            src={option[imgField]}
             style={{
               height: '24px',
               marginRight: '10px',
@@ -25,8 +36,8 @@ const Autocomplete = (props) => {
             }}
             className="rounded-circle"
           />
-          <span>{option.username}</span>
-        </React.Fragment>
+          <span>{option[displayField]}</span>
+        </div>
       )}
     />
   );
