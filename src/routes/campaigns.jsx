@@ -32,6 +32,14 @@ class Campaign extends Component {
     this.props.navigate('/campaigns/new');
   };
 
+  handleStop = (id) => {
+    this.props.stopCampaign({ id });
+  };
+
+  handleStart = (id) => {
+    this.props.startCampaign({ id });
+  };
+
   handleEdit = (id) => {
     this.props.navigate(`/campaigns/${id}`);
   };
@@ -97,6 +105,8 @@ class Campaign extends Component {
                   poshUser={this.getPoshUser(campaign.posh_user)}
                   onDelete={this.handleDelete}
                   onEdit={this.handleEdit}
+                  onStart={this.handleStart}
+                  onStop={this.handleStop}
                 />
               }
             ></CustomCard>
@@ -144,6 +154,24 @@ const mapDispatchToProps = (dispatch) => ({
       apiCallBegan({
         url: '/posh-users/',
         onSuccess: 'poshUsers/received',
+      })
+    );
+  },
+  startCampaign: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: `/campaigns/${payload.id}/start/`,
+        method: 'POST',
+        onSuccess: 'campaigns/started',
+      })
+    );
+  },
+  stopCampaign: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: `/campaigns/${payload.id}/stop/`,
+        method: 'POST',
+        onSuccess: 'campaigns/stopped',
       })
     );
   },

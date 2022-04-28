@@ -82,7 +82,6 @@ class CampaignForm extends Component {
       ...listing,
       titleSize: `${listing.title} (${listing.size})`,
     }));
-    console.log(listings);
     const newCampaign = {
       mode: Object.keys(this.modeOptionsMapping).find(
         (key) => this.modeOptionsMapping[key] === campaign.mode

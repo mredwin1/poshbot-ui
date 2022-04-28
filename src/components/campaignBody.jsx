@@ -9,7 +9,8 @@ class CampaignBody extends Component {
   };
 
   render() {
-    const { title, id, status, poshUser, onDelete, onEdit } = this.props;
+    const { title, id, status, poshUser, onDelete, onEdit, onStart, onStop } =
+      this.props;
     return (
       <>
         <Row>
@@ -47,8 +48,12 @@ class CampaignBody extends Component {
             >
               <i
                 className="bi bi-stop"
-                style={{ cursor: 'pointer', fontSize: '1.4rem' }}
-                onClick={() => {}}
+                style={
+                  status !== '3'
+                    ? { cursor: 'pointer', fontSize: '1.4rem' }
+                    : { fontSize: '1.4rem' }
+                }
+                onClick={() => (status !== '3' ? onStop(id) : {})}
               ></i>
             </OverlayTrigger>
           </Col>
@@ -60,8 +65,12 @@ class CampaignBody extends Component {
             >
               <i
                 className="bi bi-play"
-                style={{ cursor: 'pointer', fontSize: '1.4rem' }}
-                onClick={() => {}}
+                style={
+                  status === '3'
+                    ? { cursor: 'pointer', fontSize: '1.4rem' }
+                    : { fontSize: '1.4rem' }
+                }
+                onClick={() => (status === '3' ? onStart(id) : {})}
               ></i>
             </OverlayTrigger>
           </Col>

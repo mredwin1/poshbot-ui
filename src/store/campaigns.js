@@ -26,6 +26,18 @@ const slice = createSlice({
     received: (campaigns, action) => {
       campaigns.list = action.payload.results;
     },
+    started: (campaigns, action) => {
+      const index = campaigns.list.findIndex(
+        (campaign) => campaign.id === action.payload.id
+      );
+      campaigns.list[index] = action.payload;
+    },
+    stopped: (campaigns, action) => {
+      const index = campaigns.list.findIndex(
+        (campaign) => campaign.id === action.payload.id
+      );
+      campaigns.list[index] = action.payload;
+    },
   },
 });
 
