@@ -36,6 +36,7 @@ class CampaignForm extends Component {
   modeOptionsMapping = {
     'Select a Mode': '',
     'Advanced Sharing': '0',
+    'Basic Sharing': '1',
   };
   constructor() {
     super();
