@@ -99,8 +99,13 @@ class CampaignForm extends Component {
 
   transformToFormData = (newListing) => {
     newListing.mode = this.modeOptionsMapping[newListing.mode];
-    newListing.posh_user = newListing.selectedPoshUser[0].id;
     newListing.listings = [];
+
+    if (typeof newListing.selectedPoshUser[0] !== undefined) {
+      newListing.posh_user = newListing.selectedPoshUser[0].id;
+    } else {
+      newListing.poshUser = '';
+    }
 
     newListing.selectedListings.forEach((listing) => {
       newListing.listings.push(listing.id);
