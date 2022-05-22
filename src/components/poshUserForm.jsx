@@ -8,7 +8,7 @@ const Joi = require('joi-browser');
 class PoshUserForm extends Component {
   state = {
     newPoshUser: {
-      email: '',
+      username: '',
       password: '',
     },
     validated: false,
@@ -16,7 +16,7 @@ class PoshUserForm extends Component {
   };
 
   schema = {
-    email: Joi.string().email().required().label('Email'),
+    username: Joi.string().required().label('Username'),
     password: Joi.string()
       .min(6)
       .regex(/[!@#$%^&*_0-9]/, 'special character or number')
@@ -38,13 +38,13 @@ class PoshUserForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
-      const { email, password } = this.state.newPoshUser;
-      this.props.addPoshUser({ email, password });
+      const { username, password } = this.state.newPoshUser;
+      this.props.addPoshUser({ username, password });
 
       this.props.onHide();
       this.setState({
         newPoshUser: {
-          email: '',
+          username: '',
           password: '',
         },
         errors: {},
@@ -78,20 +78,19 @@ class PoshUserForm extends Component {
     const { newPoshUser, errors } = this.state;
     return (
       <Form id="poshUserAddForm" onSubmit={this.handleSubmit} validated={false}>
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Email address</Form.Label>
+        <Form.Group className="mb-3" controlId="username">
+          <Form.Label>Username</Form.Label>
           <Form.Control
-            type="email"
-            name="email"
-            placeholder="name@example.com"
-            value={newPoshUser.email}
+            type="text"
+            name="username"
+            value={newPoshUser.username}
             onChange={this.handleChange}
-            isInvalid={errors.email ? true : false}
+            isInvalid={errors.username ? true : false}
             required
             autoFocus
           />
           <Form.Control.Feedback type="invalid">
-            {errors.email}
+            {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
