@@ -38,22 +38,22 @@ const PoshUserBody = (props) => {
       </Row>
       <hr className="m-0" />
       <div>
-        <b>Email:</b> {email}
-      </div>
-      <div>
         <b>Username:</b> {username}
       </div>
       <div>
         <b>Password:</b> {password}
       </div>
       <div>
-        <b>Phone Number:</b> {phone_number}
-      </div>
-      <div>
         <b>Status:</b> {status}
       </div>
       <div>
+        <b>Phone Number:</b> {phone_number ? phone_number : 'None'}
+      </div>
+      <div>
         <b>Sales:</b> {sales}
+      </div>
+      <div>
+        <b>Email:</b> {email ? email : 'None'}
       </div>
     </React.Fragment>
   );

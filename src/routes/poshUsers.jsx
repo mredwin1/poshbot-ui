@@ -47,6 +47,7 @@ class PoshUsers extends Component {
     this.props.addPoshUser({ email, password });
     this.setState({ currentPage: 1, search: '' });
   };
+
   render() {
     const { search, pageSize, show, currentPage } = this.state;
 
@@ -105,7 +106,11 @@ class PoshUsers extends Component {
           children={poshUsers.map((poshUser) => (
             <CustomCard
               key={poshUser.id}
-              imgSrc={poshUser.profile_picture}
+              imgSrc={
+                poshUser.profile_picture
+                  ? poshUser.profile_picture
+                  : `${process.env.PUBLIC_URL}/user.png`
+              }
               imgUrl={poshUser.profile_url}
               children={
                 <PoshUserBody {...poshUser} onDelete={this.handleDelete} />
