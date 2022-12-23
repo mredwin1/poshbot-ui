@@ -9,7 +9,7 @@ const slice = createSlice({
   },
   reducers: {
     added: (poshUsers, action) => {
-      poshUsers.list.unshift(action.payload);
+      poshUsers.list.concat(action.payload);
     },
     removed: (poshUsers, action) => {
       const index = poshUsers.list.findIndex(
