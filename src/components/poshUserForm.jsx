@@ -8,15 +8,16 @@ const Joi = require('joi-browser');
 class PoshUserForm extends Component {
   state = {
     newPoshUser: {
-      username: '',
+      email: '',
       password: '',
+      quantity: 1,
     },
     validated: false,
     errors: {},
   };
 
   schema = {
-    username: Joi.string().required().label('Username'),
+    email: Joi.string().required().label('Email'),
     password: Joi.string()
       .min(6)
       .regex(/[!@#$%^&*_0-9]/, 'special character or number')
@@ -26,6 +27,7 @@ class PoshUserForm extends Component {
           any: { allowOnly: 'must contain a number or special character' },
         },
       }),
+    quantity: Joi.number().required().label('Quantity'),
   };
 
   handleSubmit = (e) => {
@@ -38,14 +40,37 @@ class PoshUserForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
-      const { username, password } = this.state.newPoshUser;
-      this.props.addPoshUser({ username, password });
+      const { email, password, quantity } = this.state.newPoshUser;
+      let payload = [];
+
+      if (email.indexOf('+') === -1) {
+        indexOfAt = email.indexOf('@');
+        email = `${email.substring(0, indexOfAt)}+1${email.substring(
+          indexOfAt,
+          email.length
+        )}`;
+      }
+
+      for (let i = 0; i < quantity; i++) {
+        payload.push({ email, password });
+        indexOfAt = email.indexOf('@');
+        indexOfPlus = email.indexOf('+');
+
+        emailNumber = parseInt(email.substring(indexOfPlus + 1, indexOfAt));
+        email = `${email.substring(
+          0,
+          indexOfPlus + 1
+        )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
+      }
+      console.log(payload);
+      this.props.addPoshUser(payload);
 
       this.props.onHide();
       this.setState({
         newPoshUser: {
-          username: '',
+          email: '',
           password: '',
+          quantity: 1,
         },
         errors: {},
       });
@@ -78,19 +103,19 @@ class PoshUserForm extends Component {
     const { newPoshUser, errors } = this.state;
     return (
       <Form id="poshUserAddForm" onSubmit={this.handleSubmit} validated={false}>
-        <Form.Group className="mb-3" controlId="username">
-          <Form.Label>Username</Form.Label>
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="text"
-            name="username"
-            value={newPoshUser.username}
+            name="email"
+            value={newPoshUser.email}
             onChange={this.handleChange}
-            isInvalid={errors.username ? true : false}
+            isInvalid={errors.email ? true : false}
             required
             autoFocus
           />
           <Form.Control.Feedback type="invalid">
-            {errors.username}
+            {errors.email}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
@@ -105,6 +130,21 @@ class PoshUserForm extends Component {
           />
           <Form.Control.Feedback type="invalid">
             {errors.password}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="quantity">
+          <Form.Label>Quantity</Form.Label>
+          <Form.Control
+            type="number"
+            name="quantity"
+            value={newPoshUser.quantity}
+            onChange={this.handleChange}
+            isInvalid={errors.quantity ? true : false}
+            required
+            autoFocus
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.quantity}
           </Form.Control.Feedback>
         </Form.Group>
       </Form>
