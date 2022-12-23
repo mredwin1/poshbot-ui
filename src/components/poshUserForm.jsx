@@ -40,9 +40,10 @@ class PoshUserForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
+      console.log(this.state.newPoshUser);
       let { email, password, quantity } = this.state.newPoshUser;
       let payload = [];
-
+      console.log(email);
       if (email.indexOf('+') === -1) {
         let indexOfAt = email.indexOf('@');
         let email = `${email.substring(0, indexOfAt)}+1${email.substring(
