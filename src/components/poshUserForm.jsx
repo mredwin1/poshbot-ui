@@ -158,7 +158,7 @@ const mapDispatchToProps = (dispatch) => ({
   addPoshUser: (payload) => {
     dispatch(
       apiCallBegan({
-        url: '/posh-users/',
+        url: '/posh-users/generate',
         method: 'POST',
         data: payload,
         onSuccess: 'poshUsers/added',
