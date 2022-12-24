@@ -52,7 +52,7 @@ class PoshUserForm extends Component {
         )}`;
       }
 
-      for (let i = 0; i < quantity; i++) {
+      for (let i = 0; i < quantity + 1; i++) {
         console.log(email);
         payload.push({ email, password });
         indexOfAt = email.indexOf('@');
