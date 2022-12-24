@@ -40,12 +40,10 @@ class PoshUserForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
-      console.log(this.state.newPoshUser);
       let { email, password, quantity } = this.state.newPoshUser;
       let payload = [];
       let indexOfAt = -1;
       let indexOfPlus = -1;
-      console.log(email);
       if (email.indexOf('+') === -1) {
         indexOfAt = email.indexOf('@');
         email = `${email.substring(0, indexOfAt)}+1${email.substring(
@@ -55,18 +53,18 @@ class PoshUserForm extends Component {
       }
 
       for (let i = 0; i < quantity; i++) {
-        console.log(email.substring(indexOfPlus + 1, indexOfAt));
-        let emailNumber =
-          parseInt(email.substring(indexOfPlus + 1, indexOfAt)) + i;
+        console.log(email);
         payload.push({ email, password });
         indexOfAt = email.indexOf('@');
         indexOfPlus = email.indexOf('+');
+        let emailNumber =
+          parseInt(email.substring(indexOfPlus + 1, indexOfAt)) + i;
         email = `${email.substring(
           0,
           indexOfPlus + 1
         )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
+        console.log(email.substring(indexOfPlus + 1, indexOfAt));
       }
-      console.log(payload);
       this.props.addPoshUser(payload);
 
       this.props.onHide();
