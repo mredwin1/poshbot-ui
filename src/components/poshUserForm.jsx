@@ -10,7 +10,6 @@ class PoshUserForm extends Component {
     newPoshUser: {
       email: '',
       password: '',
-      quantity: 1,
     },
     validated: false,
     errors: {},
@@ -27,7 +26,6 @@ class PoshUserForm extends Component {
           any: { allowOnly: 'must contain a number or special character' },
         },
       }),
-    quantity: Joi.number().required().label('Quantity'),
   };
 
   handleSubmit = (e) => {
@@ -40,38 +38,37 @@ class PoshUserForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
-      let { email, password, quantity } = this.state.newPoshUser;
-      let payload = [];
-      let indexOfAt = -1;
-      let indexOfPlus = -1;
-      if (email.indexOf('+') === -1) {
-        indexOfAt = email.indexOf('@');
-        email = `${email.substring(0, indexOfAt)}+1${email.substring(
-          indexOfAt,
-          email.length
-        )}`;
-      }
+      // let { email, password, quantity } = this.state.newPoshUser;
+      // let payload = [];
+      // let indexOfAt = -1;
+      // let indexOfPlus = -1;
+      // if (email.indexOf('+') === -1) {
+      //   indexOfAt = email.indexOf('@');
+      //   email = `${email.substring(0, indexOfAt)}+1${email.substring(
+      //     indexOfAt,
+      //     email.length
+      //   )}`;
+      // }
 
-      for (let i = 0; i < quantity; i++) {
-        payload.push({ email, password });
-        indexOfAt = email.indexOf('@');
-        indexOfPlus = email.indexOf('+');
-        let emailNumber =
-          parseInt(email.substring(indexOfPlus + 1, indexOfAt)) + 1;
-        email = `${email.substring(
-          0,
-          indexOfPlus + 1
-        )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
-      }
+      // for (let i = 0; i < quantity; i++) {
+      //   payload.push({ email, password });
+      //   indexOfAt = email.indexOf('@');
+      //   indexOfPlus = email.indexOf('+');
+      //   let emailNumber =
+      //     parseInt(email.substring(indexOfPlus + 1, indexOfAt)) + 1;
+      //   email = `${email.substring(
+      //     0,
+      //     indexOfPlus + 1
+      //   )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
+      // }
 
-      this.props.addPoshUser(payload);
+      this.props.addPoshUser(this.state.newPoshUser);
 
       this.props.onHide();
       this.setState({
         newPoshUser: {
           email: '',
           password: '',
-          quantity: 1,
         },
         errors: {},
       });
@@ -131,21 +128,6 @@ class PoshUserForm extends Component {
           />
           <Form.Control.Feedback type="invalid">
             {errors.password}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="quantity">
-          <Form.Label>Quantity</Form.Label>
-          <Form.Control
-            type="number"
-            name="quantity"
-            value={newPoshUser.quantity}
-            onChange={this.handleChange}
-            isInvalid={errors.quantity ? true : false}
-            required
-            autoFocus
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.quantity}
           </Form.Control.Feedback>
         </Form.Group>
       </Form>
