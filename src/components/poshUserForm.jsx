@@ -46,7 +46,7 @@ class PoshUserForm extends Component {
       console.log(email);
       if (email.indexOf('+') === -1) {
         let indexOfAt = email.indexOf('@');
-        let email = `${email.substring(0, indexOfAt)}+1${email.substring(
+        email = `${email.substring(0, indexOfAt)}+1${email.substring(
           indexOfAt,
           email.length
         )}`;
@@ -54,10 +54,10 @@ class PoshUserForm extends Component {
 
       for (let i = 0; i < quantity; i++) {
         payload.push({ email, password });
-        let indexOfAt = email.indexOf('@');
+        indexOfAt = email.indexOf('@');
         let indexOfPlus = email.indexOf('+');
         let emailNumber = parseInt(email.substring(indexOfPlus + 1, indexOfAt));
-        let email = `${email.substring(
+        email = `${email.substring(
           0,
           indexOfPlus + 1
         )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
