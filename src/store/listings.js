@@ -11,6 +11,7 @@ const slice = createSlice({
     added: (listings, action) => {
       listings.list.push({
         id: action.payload.id,
+        assigned: action.payload.assigned,
         title: action.payload.title,
         original_price: action.payload.original_price,
         listing_price: action.payload.listing_price,

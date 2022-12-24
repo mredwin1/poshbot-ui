@@ -46,12 +46,14 @@ class CampaignForm extends Component {
   componentDidMount = async () => {
     const { id } = this.props.params;
     const { poshUsers, listings } = this.props;
-
+    const listingsFiltered = listings.filter(
+      (listing) => listing.assigned === false
+    );
     const poshUserOptions = poshUsers.filter(
       (poshUser) => poshUser.status === 'Unassigned'
     );
 
-    const listingOptions = listings.map((listing) => ({
+    const listingOptions = listingsFiltered.map((listing) => ({
       ...listing,
       titleSize: `${listing.title} (${listing.size})`,
     }));
