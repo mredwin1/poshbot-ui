@@ -55,6 +55,7 @@ class PoshUserForm extends Component {
       }
 
       for (let i = 0; i < quantity; i++) {
+        console.log(email.substring(indexOfPlus + 1, indexOfAt));
         let emailNumber =
           parseInt(email.substring(indexOfPlus + 1, indexOfAt)) + i;
         payload.push({ email, password });
