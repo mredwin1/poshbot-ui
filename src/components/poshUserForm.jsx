@@ -55,14 +55,15 @@ class PoshUserForm extends Component {
       }
 
       for (let i = 0; i < quantity; i++) {
+        let emailNumber = parseInt(email.substring(indexOfPlus + 1, indexOfAt));
         payload.push({ email, password });
         indexOfAt = email.indexOf('@');
         indexOfPlus = email.indexOf('+');
-        let emailNumber = parseInt(email.substring(indexOfPlus + 1, indexOfAt));
         email = `${email.substring(
           0,
           indexOfPlus + 1
         )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
+        emailNumber += 1;
       }
       console.log(payload);
       this.props.addPoshUser(payload);
