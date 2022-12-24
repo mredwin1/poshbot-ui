@@ -63,7 +63,7 @@ class PoshUserForm extends Component {
           0,
           indexOfPlus + 1
         )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
-        emailNumber += 1;
+        emailNumber++;
       }
       console.log(payload);
       this.props.addPoshUser(payload);
