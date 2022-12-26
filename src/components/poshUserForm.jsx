@@ -120,7 +120,6 @@ class PoshUserForm extends Component {
   handleCheckBox = ({ currentTarget: checkbox }) => {
     const newPoshUser = { ...this.state.newPoshUser };
     const checkboxValue = this.state[checkbox.name];
-    const checkboxName = checkbox.name;
 
     if (checkboxValue === false) {
       checkboxValue = true;
@@ -132,7 +131,10 @@ class PoshUserForm extends Component {
       newPoshUser.username = '';
     }
 
-    this.setState({ newPoshUser, checkboxName: checkboxValue });
+    let state = { newPoshUser };
+    state[checkbox.name] = checkboxValue;
+
+    this.setState(state);
   };
 
   render() {
