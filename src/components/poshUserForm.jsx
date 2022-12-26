@@ -93,12 +93,14 @@ class PoshUserForm extends Component {
   validate = () => {
     const { generate } = this.state.newPoshUser;
     let schema = { ...this.schema };
+
     if (generate) {
       delete schema.username;
     } else {
       delete schema.email;
     }
-    const result = Joi.validate(this.state.newPoshUser, this.schema, {
+
+    const result = Joi.validate(this.state.newPoshUser, schema, {
       abortEarly: false,
     });
 
