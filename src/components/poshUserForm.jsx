@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import { apiCallBegan } from './../store/api';
 import { connect } from 'react-redux';
 
@@ -64,8 +64,8 @@ class PoshUserForm extends Component {
       //     indexOfPlus + 1
       //   )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
       // }
-      const payload = { ...this.state.newPoshUser };
-      if (newPoshUser.generate) {
+      let payload = { ...this.state.newPoshUser };
+      if (payload.generate) {
         delete payload.username;
         delete payload.generate;
       } else {
