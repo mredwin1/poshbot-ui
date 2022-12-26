@@ -11,8 +11,8 @@ class PoshUserForm extends Component {
       email: '',
       username: '',
       password: '',
-      generate: true,
     },
+    generate: true,
     validated: false,
     errors: {},
   };
@@ -65,15 +65,10 @@ class PoshUserForm extends Component {
       //   )}${emailNumber}${email.substring(indexOfAt, email.length)}`;
       // }
       let payload = { ...this.state.newPoshUser };
-      if (payload.generate) {
-        delete payload.username;
-        delete payload.generate;
-
+      const { generate } = this.state;
+      if (generate) {
         this.props.generatePoshUser(payload);
       } else {
-        delete payload.email;
-        delete payload.generate;
-
         this.props.addPoshUser(payload);
       }
 
@@ -83,8 +78,9 @@ class PoshUserForm extends Component {
           email: '',
           username: '',
           password: '',
-          generate: true,
         },
+        generate: true,
+        validated: false,
         errors: {},
       });
     }
@@ -126,22 +122,26 @@ class PoshUserForm extends Component {
 
     if (newPoshUser[checkbox.name] === false) {
       newPoshUser[checkbox.name] = true;
+      delete newPoshUser.username;
+      newPoshUser.email = '';
     } else {
       newPoshUser[checkbox.name] = false;
+      delete newPoshUser.email;
+      newPoshUser.username = '';
     }
 
     this.setState({ newPoshUser });
   };
 
   render() {
-    const { newPoshUser, errors } = this.state;
+    const { newPoshUser, errors, generate } = this.state;
     let identifierInvalid = false;
     let identifierErrors = '';
 
-    if (newPoshUser.generate && errors.email) {
+    if (generate && errors.email) {
       identifierInvalid = true;
       identifierErrors = errors.email;
-    } else if (!newPoshUser.generate && errors.username) {
+    } else if (!generate && errors.username) {
       identifierInvalid = true;
       identifierErrors = errors.username;
     }
@@ -155,21 +155,19 @@ class PoshUserForm extends Component {
               label="Generate"
               name="generate"
               onChange={this.handleCheckBox}
-              checked={newPoshUser.generate}
+              checked={generate}
             />
           </Col>
         </Row>
         <Form.Group
           className="mb-3"
-          controlId={newPoshUser.generate ? 'email' : 'username'}
+          controlId={generate ? 'email' : 'username'}
         >
-          <Form.Label>{newPoshUser.generate ? 'Email' : 'Username'}</Form.Label>
+          <Form.Label>{generate ? 'Email' : 'Username'}</Form.Label>
           <Form.Control
             type="text"
-            name={newPoshUser.generate ? 'email' : 'username'}
-            value={
-              newPoshUser.generate ? newPoshUser.email : newPoshUser.username
-            }
+            name={generate ? 'email' : 'username'}
+            value={generate ? newPoshUser.email : newPoshUser.username}
             onChange={this.handleChange}
             isInvalid={identifierInvalid}
             required
