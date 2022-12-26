@@ -66,6 +66,9 @@ class PoshUserForm extends Component {
       // }
       let payload = { ...this.state.newPoshUser };
       const { generate } = this.state;
+      console.log(generate);
+      console.log(payload);
+      console.log(this.props);
       if (generate) {
         this.props.generatePoshUser(payload);
       } else {
