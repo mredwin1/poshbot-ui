@@ -9,7 +9,6 @@ class PoshUserForm extends Component {
   state = {
     newPoshUser: {
       email: '',
-      username: '',
       password: '',
     },
     generate: true,
@@ -66,9 +65,7 @@ class PoshUserForm extends Component {
       // }
       let payload = { ...this.state.newPoshUser };
       const { generate } = this.state;
-      console.log(generate);
-      console.log(payload);
-      console.log(this.props);
+
       if (generate) {
         this.props.generatePoshUser(payload);
       } else {
@@ -79,7 +76,6 @@ class PoshUserForm extends Component {
       this.setState({
         newPoshUser: {
           email: '',
-          username: '',
           password: '',
         },
         generate: true,
