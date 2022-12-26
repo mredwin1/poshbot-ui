@@ -119,7 +119,7 @@ class PoshUserForm extends Component {
 
   handleCheckBox = ({ currentTarget: checkbox }) => {
     const newPoshUser = { ...this.state.newPoshUser };
-    const checkboxValue = this.state[checkbox.name];
+    let checkboxValue = this.state[checkbox.name];
 
     if (checkboxValue === false) {
       checkboxValue = true;
