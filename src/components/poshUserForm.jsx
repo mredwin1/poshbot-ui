@@ -68,12 +68,14 @@ class PoshUserForm extends Component {
       if (payload.generate) {
         delete payload.username;
         delete payload.generate;
+
+        this.props.generatePoshUser(payload);
       } else {
         delete payload.email;
         delete payload.generate;
-      }
 
-      this.props.addPoshUser(payload);
+        this.props.addPoshUser(payload);
+      }
 
       this.props.onHide();
       this.setState({
@@ -144,7 +146,7 @@ class PoshUserForm extends Component {
     return (
       <Form id="poshUserAddForm" onSubmit={this.handleSubmit} validated={false}>
         <Row style={{ justifyContent: 'end' }}>
-          <Col xs={2}>
+          <Col xs={4}>
             <Form.Label></Form.Label>
             <Form.Check
               type="switch"
@@ -157,20 +159,22 @@ class PoshUserForm extends Component {
         </Row>
         <Form.Group
           className="mb-3"
-          controlId={newPoshUser.generate ? 'username' : 'email'}
+          controlId={newPoshUser.generate ? 'email' : 'username'}
         >
-          <Form.Label>{newPoshUser.generate ? 'Username' : 'Email'}</Form.Label>
+          <Form.Label>{newPoshUser.generate ? 'Email' : 'Username'}</Form.Label>
           <Form.Control
             type="text"
-            name={newPoshUser.generate ? 'username' : 'email'}
-            value={newPoshUser.email}
+            name={newPoshUser.generate ? 'email' : 'username'}
+            value={
+              newPoshUser.generate ? newPoshUser.email : newPoshUser.username
+            }
             onChange={this.handleChange}
             isInvalid={identifierInvalid}
             required
             autoFocus
           />
           <Form.Control.Feedback type="invalid">
-            {errors.email}
+            {identifierErrors}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
@@ -196,6 +200,16 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   addPoshUser: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: '/posh-users/',
+        method: 'POST',
+        data: payload,
+        onSuccess: 'poshUsers/added',
+      })
+    );
+  },
+  generatePoshUser: (payload) => {
     dispatch(
       apiCallBegan({
         url: '/posh-users/generate/',
