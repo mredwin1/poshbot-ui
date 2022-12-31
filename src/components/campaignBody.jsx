@@ -5,6 +5,7 @@ class CampaignBody extends Component {
   state = {};
 
   handleUserClick = (poshUser) => {
+    console.log(poshUser);
     window.open(poshUser.profile_url);
   };
 
