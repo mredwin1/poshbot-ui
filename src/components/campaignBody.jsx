@@ -43,14 +43,14 @@ class CampaignBody extends Component {
         </Row>
         <hr className="mb-0 mt-4" />
         <Row style={{ justifyContent: 'end' }} className="pt-1">
-          <Col xs={3}>
+          <Col xs={3} className="text-center">
             <OverlayTrigger
               key="top"
               placement="top"
               overlay={<Tooltip id={`tooltip-top`}>Stop Campaign</Tooltip>}
             >
               <i
-                className="bi bi-stop text-center"
+                className="bi bi-stop"
                 style={
                   status !== '3'
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
@@ -60,14 +60,14 @@ class CampaignBody extends Component {
               ></i>
             </OverlayTrigger>
           </Col>
-          <Col xs={3}>
+          <Col xs={3} className="text-center">
             <OverlayTrigger
               key="top"
               placement="top"
               overlay={<Tooltip id={`tooltip-top`}>Start Campaign</Tooltip>}
             >
               <i
-                className="bi bi-play text-center"
+                className="bi bi-play"
                 style={
                   status === '3'
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
@@ -77,27 +77,27 @@ class CampaignBody extends Component {
               ></i>
             </OverlayTrigger>
           </Col>
-          <Col xs={3}>
+          <Col xs={3} className="text-center">
             <OverlayTrigger
               key="top"
               placement="top"
               overlay={<Tooltip id={`tooltip-top`}>Edit Campaign</Tooltip>}
             >
               <i
-                className="bi bi-pen text-center"
+                className="bi bi-pen"
                 style={{ cursor: 'pointer', fontSize: '1.2rem' }}
                 onClick={() => onEdit(id)}
               ></i>
             </OverlayTrigger>
           </Col>
-          <Col xs={3}>
+          <Col xs={3} className="text-center">
             <OverlayTrigger
               key="top"
               placement="top"
               overlay={<Tooltip id={`tooltip-top`}>Delete Campaign</Tooltip>}
             >
               <i
-                className="bi bi-trash text-center"
+                className="bi bi-trash"
                 style={{ cursor: 'pointer', fontSize: '1.2rem' }}
                 onClick={() => onDelete(id)}
               ></i>
