@@ -5,7 +5,7 @@ class CampaignBody extends Component {
   state = {};
 
   handleUserClick = (poshUser) => {
-    console.log(poshUser);
+    console.log(poshUser.profile_url);
     window.open(poshUser.profile_url);
   };
 
@@ -13,7 +13,6 @@ class CampaignBody extends Component {
     const { title, id, status, poshUser, onDelete, onEdit, onStart, onStop } =
       this.props;
 
-    console.log(poshUser);
     return (
       <>
         <Row>
@@ -27,9 +26,7 @@ class CampaignBody extends Component {
               className="fs-6"
               style={poshUser ? { cursor: 'pointer' } : {}}
               onClick={
-                poshUser
-                  ? (poshUser) => this.handleUserClick(poshUser)
-                  : () => {}
+                poshUser ? () => this.handleUserClick(poshUser) : () => {}
               }
             >
               Posh User: {poshUser ? poshUser.username : 'None Assigned'}
