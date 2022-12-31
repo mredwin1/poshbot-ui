@@ -41,7 +41,7 @@ class CampaignBody extends Component {
         </Row>
         <hr className="mb-0 mt-4" />
         <Row style={{ justifyContent: 'end' }} className="pt-1">
-          <Col xs={2}>
+          <Col xs={3}>
             <OverlayTrigger
               key="top"
               placement="top"
@@ -58,7 +58,7 @@ class CampaignBody extends Component {
               ></i>
             </OverlayTrigger>
           </Col>
-          <Col xs={2}>
+          <Col xs={3}>
             <OverlayTrigger
               key="top"
               placement="top"
@@ -75,7 +75,7 @@ class CampaignBody extends Component {
               ></i>
             </OverlayTrigger>
           </Col>
-          <Col xs={2}>
+          <Col xs={3}>
             <OverlayTrigger
               key="top"
               placement="top"
@@ -88,7 +88,7 @@ class CampaignBody extends Component {
               ></i>
             </OverlayTrigger>
           </Col>
-          <Col xs={2}>
+          <Col xs={3}>
             <OverlayTrigger
               key="top"
               placement="top"
