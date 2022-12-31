@@ -45,11 +45,7 @@ class Campaign extends Component {
   };
 
   getPoshUser = (id) => {
-    const poshUser = this.props.poshUsers.filter(
-      (poshUser) => poshUser.id === id
-    )[0];
-    console.log(poshUser);
-    return poshUser;
+    return this.props.poshUsers.filter((poshUser) => poshUser.id === id)[0];
   };
 
   getCoverPhoto = (campaign) => {

@@ -48,7 +48,7 @@ class CampaignBody extends Component {
               overlay={<Tooltip id={`tooltip-top`}>Stop Campaign</Tooltip>}
             >
               <i
-                className="bi bi-stop"
+                className="bi bi-stop text-center"
                 style={
                   status !== '3'
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
@@ -65,7 +65,7 @@ class CampaignBody extends Component {
               overlay={<Tooltip id={`tooltip-top`}>Start Campaign</Tooltip>}
             >
               <i
-                className="bi bi-play"
+                className="bi bi-play text-center"
                 style={
                   status === '3'
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
@@ -82,7 +82,7 @@ class CampaignBody extends Component {
               overlay={<Tooltip id={`tooltip-top`}>Edit Campaign</Tooltip>}
             >
               <i
-                className="bi bi-pen"
+                className="bi bi-pen text-center"
                 style={{ cursor: 'pointer', fontSize: '1.2rem' }}
                 onClick={() => onEdit(id)}
               ></i>
@@ -95,7 +95,7 @@ class CampaignBody extends Component {
               overlay={<Tooltip id={`tooltip-top`}>Delete Campaign</Tooltip>}
             >
               <i
-                className="bi bi-trash"
+                className="bi bi-trash text-center"
                 style={{ cursor: 'pointer', fontSize: '1.2rem' }}
                 onClick={() => onDelete(id)}
               ></i>
