@@ -12,6 +12,8 @@ class CampaignBody extends Component {
   render() {
     const { title, id, status, poshUser, onDelete, onEdit, onStart, onStop } =
       this.props;
+
+    console.log(poshUser);
     return (
       <>
         <Row>
