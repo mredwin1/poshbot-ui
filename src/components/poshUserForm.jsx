@@ -72,14 +72,15 @@ class PoshUserForm extends Component {
   };
 
   validate = () => {
-    const { generate, newPoshUser } = this.state;
+    const { generate, customEmail, newPoshUser } = this.state;
     let schema = { ...this.schema };
 
-    if (generate && newPoshUser.quantity) {
+    if (generate && customEmail) {
+      delete schema.username;
+      delete schema.quantity;
+    } else if (generate && !customEmail) {
       delete schema.username;
       delete schema.email;
-    } else if (generate) {
-      delete schema.username;
     } else {
       delete schema.quantity;
       delete schema.email;
