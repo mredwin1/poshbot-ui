@@ -108,12 +108,10 @@ class PoshUserForm extends Component {
 
   handleCheckBox = ({ currentTarget: checkbox }) => {
     const newPoshUser = { ...this.state.newPoshUser };
-    let checkboxValue = checkbox.value;
+    let checkboxValue = this.state[checkbox.name];
     let state = this.state;
-    console.log(state);
-    console.log(checkbox.name);
-    console.log(checkboxValue);
     if (checkboxValue === false) {
+      checkboxValue = true;
       if (checkbox.name == 'generate') {
         delete newPoshUser.username;
         delete newPoshUser.email;
@@ -124,6 +122,7 @@ class PoshUserForm extends Component {
         newPoshUser.email = '';
       }
     } else {
+      checkboxValue = false;
       if (checkbox.name == 'generate') {
         delete newPoshUser.quantity;
         delete newPoshUser.email;
@@ -142,12 +141,12 @@ class PoshUserForm extends Component {
       state.generate = true;
     }
 
-    console.log(state);
     this.setState(state);
   };
 
   render() {
     const { newPoshUser, errors, generate, customEmail } = this.state;
+    console.log(this.state);
     let identifierInvalid = false;
     let identifierErrors = '';
     let identifierType = 'number';
