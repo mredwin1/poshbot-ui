@@ -42,7 +42,7 @@ class PoshUserForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
-      const { generate } = this.state;
+      const { generate, customEmail } = this.state;
       let { password, quantity } = this.state.newPoshUser;
 
       if (generate && quantity) {
@@ -53,6 +53,8 @@ class PoshUserForm extends Component {
         }
 
         this.props.generatePoshUser(payload);
+      } else if (generate && customEmail) {
+        this.props.generatePoshUser(this.state.newPoshUser);
       } else {
         this.props.addPoshUser(this.state.newPoshUser);
       }
