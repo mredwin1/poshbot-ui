@@ -19,7 +19,7 @@ class PoshUserForm extends Component {
 
   schema = {
     quantity: Joi.number().min(1).required().label('Quantity'),
-    email: Joi.email().required().label('Email'),
+    email: Joi.string().required().label('Email'),
     username: Joi.string().required().max(15).label('Username'),
     password: Joi.string()
       .min(6)
