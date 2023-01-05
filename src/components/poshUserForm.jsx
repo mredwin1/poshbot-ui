@@ -110,7 +110,8 @@ class PoshUserForm extends Component {
     console.log(this.state);
     const newPoshUser = { ...this.state.newPoshUser };
     let checkboxValue = this.state[checkbox.name];
-
+    console.log(checkbox.name);
+    console.log(checkboxValue);
     if (checkboxValue === false) {
       checkboxValue = true;
       if (checkbox.name == 'generate') {
