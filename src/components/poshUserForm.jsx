@@ -207,7 +207,7 @@ class PoshUserForm extends Component {
           <Form.Control
             type={identifierType}
             name={identifierName}
-            value={generate ? newPoshUser.quantity : newPoshUser.username}
+            value={identifierValue}
             onChange={this.handleChange}
             isInvalid={identifierInvalid}
             required
