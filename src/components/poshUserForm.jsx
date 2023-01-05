@@ -115,7 +115,7 @@ class PoshUserForm extends Component {
       if (checkbox.name == 'generate') {
         delete newPoshUser.username;
         delete newPoshUser.email;
-        newPoshUser.quantity = '';
+        newPoshUser.quantity = 1;
       } else {
         delete newPoshUser.username;
         delete newPoshUser.quantity;
@@ -130,7 +130,7 @@ class PoshUserForm extends Component {
       } else {
         delete newPoshUser.username;
         delete newPoshUser.quantity;
-        newPoshUser.quantity = '';
+        newPoshUser.quantity = 1;
       }
     }
 
