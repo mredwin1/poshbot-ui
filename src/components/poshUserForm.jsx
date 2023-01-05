@@ -12,12 +12,14 @@ class PoshUserForm extends Component {
       password: '',
     },
     generate: true,
+    customEmail: false,
     validated: false,
     errors: {},
   };
 
   schema = {
     quantity: Joi.number().min(1).required().label('Quantity'),
+    email: Joi.email().required().label('Email'),
     username: Joi.string().required().max(15).label('Username'),
     password: Joi.string()
       .min(6)
@@ -40,20 +42,10 @@ class PoshUserForm extends Component {
 
     this.setState({ validated, errors });
     if (validated) {
-      // let indexOfAt = -1;
-      // let indexOfPlus = -1;
-      // if (email.indexOf('+') === -1) {
-      //   indexOfAt = email.indexOf('@');
-      //   email = `${email.substring(0, indexOfAt)}+1${email.substring(
-      //     indexOfAt,
-      //     email.length
-      //   )}`;
-      // }
-
       const { generate } = this.state;
+      let { password, quantity } = this.state.newPoshUser;
 
-      if (generate) {
-        let { password, quantity } = this.state.newPoshUser;
+      if (generate && quantity) {
         let payload = [];
 
         for (let i = 0; i < quantity; i++) {
@@ -72,6 +64,7 @@ class PoshUserForm extends Component {
           password: '',
         },
         generate: true,
+        customEmail: false,
         validated: false,
         errors: {},
       });
@@ -79,13 +72,17 @@ class PoshUserForm extends Component {
   };
 
   validate = () => {
-    const { generate } = this.state;
+    const { generate, newPoshUser } = this.state;
     let schema = { ...this.schema };
 
-    if (generate) {
+    if (generate && newPoshUser.quantity) {
+      delete schema.username;
+      delete schema.email;
+    } else if (generate) {
       delete schema.username;
     } else {
       delete schema.quantity;
+      delete schema.email;
     }
 
     const result = Joi.validate(this.state.newPoshUser, schema, {
@@ -115,24 +112,47 @@ class PoshUserForm extends Component {
 
     if (checkboxValue === false) {
       checkboxValue = true;
-      delete newPoshUser.username;
-      newPoshUser.quantity = '';
+      if (checkbox.name == 'generate') {
+        delete newPoshUser.username;
+        delete newPoshUser.email;
+        newPoshUser.quantity = '';
+      } else {
+        delete newPoshUser.username;
+        delete newPoshUser.quantity;
+        newPoshUser.email = '';
+      }
     } else {
       checkboxValue = false;
-      delete newPoshUser.quantity;
-      newPoshUser.username = '';
+      if (checkbox.name == 'generate') {
+        delete newPoshUser.quantity;
+        delete newPoshUser.email;
+        newPoshUser.username = '';
+      } else {
+        delete newPoshUser.username;
+        delete newPoshUser.quantity;
+        newPoshUser.email = '';
+      }
     }
 
     let state = { newPoshUser };
     state[checkbox.name] = checkboxValue;
+    if (checkbox.name == 'generate') {
+      state.customEmail = false;
+    } else {
+      state.generate = true;
+    }
 
     this.setState(state);
   };
 
   render() {
-    const { newPoshUser, errors, generate } = this.state;
+    const { newPoshUser, errors, generate, customEmail } = this.state;
     let identifierInvalid = false;
     let identifierErrors = '';
+    let identifierType = 'number';
+    let identifierName = 'quantity';
+    let identifierLabel = 'Quantity';
+    let identifierValue = newPoshUser.quantity;
 
     if (generate && errors.quantity) {
       identifierInvalid = true;
@@ -140,7 +160,23 @@ class PoshUserForm extends Component {
     } else if (!generate && errors.username) {
       identifierInvalid = true;
       identifierErrors = errors.username;
+    } else if (generate && errors.email) {
+      identifierInvalid = true;
+      identifierErrors = errors.email;
     }
+
+    if (!generate) {
+      identifierType = 'text';
+      identifierName = 'username';
+      identifierLabel = 'Username';
+      identifierValue = newPoshUser.username;
+    } else if (generate && customEmail) {
+      identifierType = 'email';
+      identifierName = 'email';
+      identifierLabel = 'Email';
+      identifierValue = newPoshUser.email;
+    }
+
     return (
       <Form id="poshUserAddForm" onSubmit={this.handleSubmit} validated={false}>
         <Row style={{ justifyContent: 'end' }}>
@@ -154,15 +190,22 @@ class PoshUserForm extends Component {
               checked={generate}
             />
           </Col>
+          <Col xs={4}>
+            <Form.Label></Form.Label>
+            <Form.Check
+              type="switch"
+              label="Custom Email"
+              name="customEmail"
+              onChange={this.handleCheckBox}
+              checked={customEmail}
+            />
+          </Col>
         </Row>
-        <Form.Group
-          className="mb-3"
-          controlId={generate ? 'quantity' : 'username'}
-        >
-          <Form.Label>{generate ? 'Quantity' : 'Username'}</Form.Label>
+        <Form.Group className="mb-3" controlId={identifierName}>
+          <Form.Label>{identifierLabel}</Form.Label>
           <Form.Control
-            type={generate ? 'number' : 'username'}
-            name={generate ? 'quantity' : 'username'}
+            type={identifierType}
+            name={identifierName}
             value={generate ? newPoshUser.quantity : newPoshUser.username}
             onChange={this.handleChange}
             isInvalid={identifierInvalid}
