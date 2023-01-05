@@ -135,6 +135,7 @@ class PoshUserForm extends Component {
     }
 
     state[checkbox.name] = checkboxValue;
+    state.newPoshUser = newPoshUser;
     if (checkbox.name == 'generate') {
       state.customEmail = false;
     } else {
