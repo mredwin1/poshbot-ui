@@ -68,13 +68,11 @@ class CampaignBody extends Component {
               <i
                 className="bi bi-play"
                 style={
-                  ['STOPPING', 'STOPPED'].includes(status) && poshUser
+                  status === 'STOPPED' && poshUser
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
                     : { fontSize: '1.4rem' }
                 }
-                onClick={() =>
-                  ['STOPPING', 'STOPPED'].includes(status) ? onStart(id) : {}
-                }
+                onClick={() => (status === 'STOPPED' ? onStart(id) : {})}
               ></i>
             </OverlayTrigger>
           </Col>
