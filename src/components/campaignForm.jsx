@@ -37,8 +37,6 @@ class CampaignForm extends Component {
     'Select a Mode': '',
     'Advanced Sharing': '0',
     'Basic Sharing': '1',
-    'Bot Tests': '2',
-    Register: '3',
   };
   constructor() {
     super();

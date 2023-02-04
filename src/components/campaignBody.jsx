@@ -49,11 +49,13 @@ class CampaignBody extends Component {
               <i
                 className="bi bi-stop"
                 style={
-                  status !== '3'
+                  !['STOPPING', 'STOPPED'].includes(status)
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
                     : { fontSize: '1.4rem' }
                 }
-                onClick={() => (status !== '3' ? onStop(id) : {})}
+                onClick={() =>
+                  !['STOPPING', 'STOPPED'].includes(status) ? onStop(id) : {}
+                }
               ></i>
             </OverlayTrigger>
           </Col>
@@ -66,11 +68,13 @@ class CampaignBody extends Component {
               <i
                 className="bi bi-play"
                 style={
-                  status === '3'
+                  ['STOPPING', 'STOPPED'].includes(status)
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
                     : { fontSize: '1.4rem' }
                 }
-                onClick={() => (status === '3' ? onStart(id) : {})}
+                onClick={() =>
+                  ['STOPPING', 'STOPPED'].includes(status) ? onStart(id) : {}
+                }
               ></i>
             </OverlayTrigger>
           </Col>
