@@ -68,7 +68,7 @@ class CampaignBody extends Component {
               <i
                 className="bi bi-play"
                 style={
-                  ['STOPPING', 'STOPPED'].includes(status)
+                  ['STOPPING', 'STOPPED'].includes(status) && poshUser
                     ? { cursor: 'pointer', fontSize: '1.4rem' }
                     : { fontSize: '1.4rem' }
                 }
