@@ -77,7 +77,7 @@ class Campaign extends Component {
           allCampaigns,
           (u) =>
             u.title.toLowerCase().includes(search) ||
-            u.poshUser.username.toLowerCase().includes(search)
+            (u.poshUser && u.poshUser.username.toLowerCase().includes(search))
         )
       : allCampaigns;
     const campaigns = paginate(filtered, currentPage, pageSize);
