@@ -73,7 +73,7 @@ class CampaignBody extends Component {
                     : { fontSize: '1.4rem' }
                 }
                 onClick={() =>
-                  status && poshUser === 'STOPPED' ? onStart(id) : {}
+                  status === 'STOPPED' && poshUser ? onStart(id) : {}
                 }
               ></i>
             </OverlayTrigger>
