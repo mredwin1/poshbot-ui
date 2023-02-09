@@ -73,11 +73,8 @@ class Campaign extends Component {
     const { search, pageSize, currentPage } = this.state;
     const { campaigns: allCampaigns } = this.props;
     const filtered = search
-      ? _.filter(
-          allCampaigns,
-          (u) =>
-            u.title.toLowerCase().includes(search) ||
-            (u.poshUser && u.poshUser.username.toLowerCase().includes(search))
+      ? _.filter(allCampaigns, (u) =>
+          u.title.toLowerCase().includes(search.toLowerCase())
         )
       : allCampaigns;
     const campaigns = paginate(filtered, currentPage, pageSize);

@@ -57,8 +57,8 @@ class PoshUsers extends Component {
       ? _.filter(
           allPoshUsers,
           (u) =>
-            u.email.toLowerCase().includes(search) ||
-            u.username.toLowerCase().includes(search)
+            u.email.toLowerCase().includes(search.toLowerCase()) ||
+            u.username.toLowerCase().includes(search.toLowerCase())
         )
       : allPoshUsers;
     const poshUsers = paginate(filtered, currentPage, pageSize);
