@@ -1,0 +1,10 @@
+.ribbon {
+  background-color: #a00;
+  color: #fff;
+  display: block;
+  position: relative;
+  margin-top: 5px;
+  margin-right: 20%;
+  padding: 3px 5px;
+  text-align: left;
+}
