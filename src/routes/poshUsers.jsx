@@ -62,6 +62,18 @@ class PoshUsers extends Component {
         )
       : allPoshUsers;
     const poshUsers = paginate(filtered, currentPage, pageSize);
+    console.log(
+      Math.abs(new Date() - new Date(poshUser.last_sale_time)) /
+        (1000 * 60 * 60 * 24) <
+        7
+    );
+    console.log(
+      Math.abs(new Date() - new Date(poshUser.last_sale_time)) /
+        (1000 * 60 * 60 * 24)
+    );
+    console.log(Math.abs(new Date() - new Date(poshUser.last_sale_time)));
+    console.log(new Date(poshUser.last_sale_time));
+    console.log(new Date());
     return (
       <React.Fragment>
         <Modal show={show} onHide={this.handleClose} centered>
@@ -109,7 +121,7 @@ class PoshUsers extends Component {
               ribbonText={
                 Math.abs(new Date() - new Date(poshUser.last_sale_time)) /
                   (1000 * 60 * 60 * 24) <
-                5
+                7
                   ? 'Recent Sale'
                   : null
               }
