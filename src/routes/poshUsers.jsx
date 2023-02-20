@@ -63,16 +63,16 @@ class PoshUsers extends Component {
       : allPoshUsers;
     const poshUsers = paginate(filtered, currentPage, pageSize);
     console.log(
-      Math.abs(new Date() - new Date(poshUser.last_sale_time)) /
+      Math.abs(new Date() - new Date(poshUsers[9].last_sale_time)) /
         (1000 * 60 * 60 * 24) <
         7
     );
     console.log(
-      Math.abs(new Date() - new Date(poshUser.last_sale_time)) /
+      Math.abs(new Date() - new Date(poshUsers[9].last_sale_time)) /
         (1000 * 60 * 60 * 24)
     );
-    console.log(Math.abs(new Date() - new Date(poshUser.last_sale_time)));
-    console.log(new Date(poshUser.last_sale_time));
+    console.log(Math.abs(new Date() - new Date(poshUsers[9].last_sale_time)));
+    console.log(new Date(poshUsers[9].last_sale_time));
     console.log(new Date());
     return (
       <React.Fragment>
