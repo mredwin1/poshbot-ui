@@ -7,10 +7,15 @@ class CustomCard extends Component {
   };
 
   render() {
-    const { children, imgSrc, imgUrl } = this.props;
+    const { children, imgSrc, imgUrl, ribbonText } = this.props;
     return (
       <Col className="mb-3">
         <Card>
+          {ribbonText ? (
+            <span className="ribbon">Recent Sale</span>
+          ) : (
+            <span></span>
+          )}
           <Card.Img
             variant="top"
             src={imgSrc}

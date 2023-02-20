@@ -106,6 +106,7 @@ class PoshUsers extends Component {
           children={poshUsers.map((poshUser) => (
             <CustomCard
               key={poshUser.id}
+              ribbonText={poshUser.last_sale_time ? 'Recent Sale' : null}
               imgSrc={
                 poshUser.profile_picture
                   ? poshUser.profile_picture
@@ -115,9 +116,7 @@ class PoshUsers extends Component {
               children={
                 <PoshUserBody {...poshUser} onDelete={this.handleDelete} />
               }
-            >
-              <span className="ribbon">Recent Sale</span>
-            </CustomCard>
+            ></CustomCard>
           ))}
         />
       </React.Fragment>
