@@ -11,7 +11,7 @@ const PoshUserBody = (props) => {
     password,
     phone_number,
     status,
-    sales,
+    sold_listings,
     onDelete,
   } = props;
   return (
@@ -50,7 +50,7 @@ const PoshUserBody = (props) => {
         <b>Phone Number:</b> {phone_number ? phone_number : 'None'}
       </div>
       <div>
-        <b>Sales:</b> {sales}
+        <b>Sales:</b> {sold_listings}
       </div>
       <div>
         <b>Email:</b> {email ? email : 'None'}
