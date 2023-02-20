@@ -106,7 +106,13 @@ class PoshUsers extends Component {
           children={poshUsers.map((poshUser) => (
             <CustomCard
               key={poshUser.id}
-              ribbonText={poshUser.last_sale_time ? 'Recent Sale' : null}
+              ribbonText={
+                Math.abs(new Date() - new Date(poshUser.last_sale_time)) /
+                  (1000 * 60 * 60 * 24) <
+                5
+                  ? 'Recent Sale'
+                  : null
+              }
               imgSrc={
                 poshUser.profile_picture
                   ? poshUser.profile_picture
