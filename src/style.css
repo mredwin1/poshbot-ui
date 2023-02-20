@@ -7,4 +7,5 @@
   margin-right: 20%;
   padding: 3px 5px;
   text-align: left;
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 20px) 50%, 100% 100%, 0% 100%);
 }
