@@ -115,7 +115,9 @@ class PoshUsers extends Component {
               children={
                 <PoshUserBody {...poshUser} onDelete={this.handleDelete} />
               }
-            ></CustomCard>
+            >
+              <span className="ribbon">Recent Sale</span>
+            </CustomCard>
           ))}
         />
       </React.Fragment>

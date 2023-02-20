@@ -6,6 +6,7 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from 'react-toastify';
+import './style.css';
 
 const { store, persistor } = configureStore();
 
