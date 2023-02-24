@@ -28,8 +28,6 @@ class Campaign extends Component {
     this.props.loadPoshUsers();
 
     console.log(this.props);
-    console.log(this.match);
-    console.log(this.match.params);
     console.log(this.props.params);
   }
 
