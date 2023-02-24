@@ -9,7 +9,6 @@ import { withRouter } from '../components/common/withRoute';
 import { apiCallBegan } from './../store/api';
 import { connect } from 'react-redux';
 import CampaignBody from './../components/campaignBody';
-import { useLocation } from 'react-router-dom';
 
 class Campaign extends Component {
   state = {
@@ -28,17 +27,8 @@ class Campaign extends Component {
     this.props.loadCampaigns();
     this.props.loadPoshUsers();
 
-    this.useQuery();
+    console.log(this.props);
   }
-
-  useQuery = () => {
-    const { search } = useLocation();
-
-    console.log(search);
-    let params = new URLSearchParams(search);
-    console.log(params);
-    console.log(params.getAll('page'));
-  };
 
   handleAddCampaign = () => {
     this.props.navigate('/campaigns/new');
