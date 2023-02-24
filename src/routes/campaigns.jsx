@@ -28,6 +28,7 @@ class Campaign extends Component {
     this.props.loadPoshUsers();
 
     console.log(this.props);
+    console.log(this.props.params);
   }
 
   handleAddCampaign = () => {
