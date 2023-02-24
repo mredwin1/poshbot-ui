@@ -28,14 +28,13 @@ class Campaign extends Component {
     this.props.loadCampaigns();
     this.props.loadPoshUsers();
 
-    console.log(this.useQuery());
-  }
-
-  useQuery = () => {
     const { search } = useLocation();
 
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  };
+    console.log(search);
+    let params = new URLSearchParams(search);
+    console.log(params);
+    console.log(params.getAll('page'));
+  }
 
   handleAddCampaign = () => {
     this.props.navigate('/campaigns/new');
