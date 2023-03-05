@@ -708,7 +708,7 @@ class ListingForm extends Component {
   schema = {
     title: Joi.string().max(50).required().label('Title'),
     size: Joi.string().max(20).required().label('Size'),
-    brand: Joi.string().max(30).required().label('Brand'),
+    brand: Joi.string().max(30).label('Brand'),
     category: Joi.string().max(30).required().label('Category'),
     secondaryCategory: Joi.string()
       .max(30)
