@@ -706,7 +706,7 @@ class ListingForm extends Component {
     errors: {},
   };
   schema = {
-    title: Joi.string().max(50).required().label('Title'),
+    title: Joi.string().max(80).required().label('Title'),
     size: Joi.string().max(20).required().label('Size'),
     brand: Joi.string().max(30).label('Brand'),
     category: Joi.string().max(30).required().label('Category'),
