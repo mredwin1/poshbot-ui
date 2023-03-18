@@ -10,8 +10,17 @@ class CampaignBody extends Component {
   };
 
   render() {
-    const { title, id, status, poshUser, onDelete, onEdit, onStart, onStop } =
-      this.props;
+    const {
+      title,
+      id,
+      queue_status,
+      status,
+      poshUser,
+      onDelete,
+      onEdit,
+      onStart,
+      onStop,
+    } = this.props;
 
     return (
       <>
@@ -36,6 +45,11 @@ class CampaignBody extends Component {
         <Row>
           <Col>
             <span className="fs-6">Status: {status}</span>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <span className="fs-6">Queue Status: {queue_status}</span>
           </Col>
         </Row>
         <hr className="mb-0 mt-4" />
