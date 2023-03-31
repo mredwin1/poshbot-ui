@@ -26,10 +26,10 @@ const PoshUserBody = (props) => {
           <OverlayTrigger
             key="top"
             placement="top"
-            overlay={<Tooltip id={`tooltip-top`}>Delete PoshUser</Tooltip>}
+            overlay={<Tooltip id={`tooltip-top`}>Disable PoshUser</Tooltip>}
           >
             <i
-              className="fa-light fa-ban"
+              className="bi bi-x-circle"
               style={{ cursor: 'pointer', fontSize: '1.2rem' }}
               onClick={() => onDisable(id)}
             ></i>
