@@ -31,6 +31,10 @@ class PoshUsers extends Component {
     this.props.removePoshUser({ id });
   };
 
+  handleDisable = (id) => {
+    this.props.disablePoshUser({ id });
+  };
+
   handleSearch = (search) => {
     this.setState({ search, currentPage: 1 });
   };
@@ -120,7 +124,7 @@ class PoshUsers extends Component {
               }
               imgUrl={poshUser.profile_url}
               children={
-                <PoshUserBody {...poshUser} onDelete={this.handleDelete} />
+                <PoshUserBody {...poshUser} onDisable={this.handleDisable} />
               }
             ></CustomCard>
           ))}
@@ -149,6 +153,15 @@ const mapDispatchToProps = (dispatch) => ({
         url: `/posh-users/${payload.id}/`,
         method: 'DELETE',
         onSuccess: 'poshUsers/removed',
+      })
+    );
+  },
+  disablePoshUser: (payload) => {
+    dispatch(
+      apiCallBegan({
+        url: `/posh-users/${payload.id}/disable`,
+        method: 'POST',
+        onSuccess: 'poshUsers/edited',
       })
     );
   },

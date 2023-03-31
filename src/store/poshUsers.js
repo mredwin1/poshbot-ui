@@ -20,6 +20,13 @@ const slice = createSlice({
     received: (poshUsers, action) => {
       poshUsers.list = action.payload.results;
     },
+    edited: (poshUsers, action) => {
+      const index = poshUsers.list.findIndex(
+        (poshUser) => poshUser.id === action.payload.id
+      );
+
+      poshUsers.list[index] = action.payload;
+    },
   },
 });
 

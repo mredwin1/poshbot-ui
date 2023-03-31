@@ -12,7 +12,7 @@ const PoshUserBody = (props) => {
     phone_number,
     status,
     sold_listings,
-    onDelete,
+    onDisable,
   } = props;
   return (
     <React.Fragment>
@@ -29,9 +29,9 @@ const PoshUserBody = (props) => {
             overlay={<Tooltip id={`tooltip-top`}>Delete PoshUser</Tooltip>}
           >
             <i
-              className="bi bi-trash"
+              className="fa-light fa-ban"
               style={{ cursor: 'pointer', fontSize: '1.2rem' }}
-              onClick={() => onDelete(id)}
+              onClick={() => onDisable(id)}
             ></i>
           </OverlayTrigger>
         </Col>
