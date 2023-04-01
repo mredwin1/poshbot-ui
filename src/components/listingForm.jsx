@@ -998,7 +998,7 @@ class ListingForm extends Component {
             <Form.Label>Lowest Price</Form.Label>
             <Form.Control
               type="number"
-              min="15"
+              min="10"
               name="lowest_price"
               onChange={this.handleChange}
               required
