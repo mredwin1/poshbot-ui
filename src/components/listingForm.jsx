@@ -716,8 +716,8 @@ class ListingForm extends Component {
       .label('Secondary Category'),
     subcategory: Joi.string().max(30).required().label('Sub Category'),
     original_price: Joi.number().min(50).required().label('Original Price'),
-    listing_price: Joi.number().min(25).required().label('Listing Price'),
-    lowest_price: Joi.number().min(15).required().label('Lowest Price'),
+    listing_price: Joi.number().min(10).required().label('Listing Price'),
+    lowest_price: Joi.number().min(10).required().label('Lowest Price'),
     description: Joi.any().required().label('Description'),
     cover_photo: Joi.any().required(),
     other_photos: Joi.any().required(),
@@ -950,7 +950,6 @@ class ListingForm extends Component {
               name="brand"
               maxLength="30"
               onChange={this.handleChange}
-              required
               value={newListing.brand}
               isInvalid={errors.brand ? true : false}
             />
@@ -971,7 +970,7 @@ class ListingForm extends Component {
               type="number"
               name="original_price"
               onChange={this.handleChange}
-              min="50"
+              min="10"
               required
               value={newListing.original_price}
               isInvalid={errors.original_price ? true : false}
@@ -984,7 +983,7 @@ class ListingForm extends Component {
             <Form.Label>Listing Price</Form.Label>
             <Form.Control
               type="number"
-              min="25"
+              min="10"
               name="listing_price"
               onChange={this.handleChange}
               required
