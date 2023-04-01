@@ -708,14 +708,14 @@ class ListingForm extends Component {
   schema = {
     title: Joi.string().max(80).required().label('Title'),
     size: Joi.string().max(20).required().label('Size'),
-    brand: Joi.string().max(30).label('Brand'),
+    brand: Joi.string().max(30).allow(null, '').label('Brand'),
     category: Joi.string().max(30).required().label('Category'),
     secondaryCategory: Joi.string()
       .max(30)
       .required()
       .label('Secondary Category'),
     subcategory: Joi.string().max(30).required().label('Sub Category'),
-    original_price: Joi.number().min(50).required().label('Original Price'),
+    original_price: Joi.number().min(10).required().label('Original Price'),
     listing_price: Joi.number().min(10).required().label('Listing Price'),
     lowest_price: Joi.number().min(10).required().label('Lowest Price'),
     description: Joi.any().required().label('Description'),
