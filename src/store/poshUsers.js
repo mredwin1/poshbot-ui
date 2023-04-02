@@ -11,7 +11,7 @@ const slice = createSlice({
     added: (poshUsers, action) => {
       poshUsers.list.concat(action.payload);
     },
-    removed: (poshUsers, action) => {
+    disabled: (poshUsers, action) => {
       const index = poshUsers.list.findIndex(
         (poshUser) => poshUser.id === action.payload.id
       );
@@ -30,5 +30,5 @@ const slice = createSlice({
   },
 });
 
-export const { added, removed } = slice.actions;
+export const { added, disabled } = slice.actions;
 export default slice.reducer;

@@ -159,9 +159,9 @@ const mapDispatchToProps = (dispatch) => ({
   disablePoshUser: (payload) => {
     dispatch(
       apiCallBegan({
-        url: `/posh-users/${payload.id}/disable`,
+        url: `/posh-users/${payload.id}/disable/`,
         method: 'POST',
-        onSuccess: 'poshUsers/edited',
+        onSuccess: 'poshUsers/disabled',
       })
     );
   },
