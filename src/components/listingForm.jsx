@@ -58,7 +58,7 @@ class ListingForm extends Component {
         'Wedding',
         'None',
       ],
-      'Intimates & Sleepware': [
+      'Intimates & Sleepwear': [
         'Bandeaus',
         'Bras',
         'Chemises & Slips',
