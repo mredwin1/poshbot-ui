@@ -7,6 +7,7 @@ const PoshUserBody = (props) => {
     first_name,
     last_name,
     email,
+    email_password,
     username,
     password,
     phone_number,
@@ -54,6 +55,9 @@ const PoshUserBody = (props) => {
       </div>
       <div>
         <b>Email:</b> {email ? email : 'None'}
+      </div>
+      <div>
+        <b>Email Password:</b> {email_password ? email_password : 'None'}
       </div>
     </React.Fragment>
   );
