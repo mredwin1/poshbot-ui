@@ -8,6 +8,7 @@ const PoshUserBody = (props) => {
     last_name,
     email,
     email_password,
+    email_imap_password,
     username,
     password,
     phone_number,
@@ -58,6 +59,10 @@ const PoshUserBody = (props) => {
       </div>
       <div>
         <b>Email Password:</b> {email_password ? email_password : 'None'}
+      </div>
+      <div>
+        <b>Email IMAP Password:</b>{' '}
+        {email_imap_password ? email_imap_password : 'None'}
       </div>
     </React.Fragment>
   );
