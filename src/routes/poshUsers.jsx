@@ -60,8 +60,6 @@ class PoshUsers extends Component {
     this.setState({ currentPage: 1, search: '' });
   };
 
-  handleFilter = option;
-
   render() {
     const { search, pageSize, show, currentPage, statusFilter } = this.state;
 
