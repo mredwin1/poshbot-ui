@@ -20,6 +20,13 @@ class PoshUsers extends Component {
     statusFilter: '',
   };
 
+  statusFilterMappings = {
+    '': '',
+    active: 'ACTIVE',
+    inactive: 'INACTIVE',
+    sold: 'SOLD',
+  };
+
   componentDidMount() {
     this.props.loadPoshUsers();
   }
@@ -57,12 +64,7 @@ class PoshUsers extends Component {
     const { search, pageSize, show, currentPage, statusFilter } = this.state;
 
     const { poshUsers: allPoshUsers, poshUserAdded } = this.props;
-    const filterOptions = {
-      '': '',
-      active: 'ACTIVE',
-      inactive: 'INACTIVE',
-      sold: 'SOLD',
-    };
+    const filterOptions = Object.keys(this.statusFilterMappings);
 
     const filtered = search
       ? _.statusFilter(
