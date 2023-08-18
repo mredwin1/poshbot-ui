@@ -22,9 +22,9 @@ class PoshUsers extends Component {
 
   statusFilterMappings = {
     '': '',
-    active: 'ACTIVE',
-    inactive: 'INACTIVE',
-    sold: 'SOLD',
+    ACTIVE: 'Unassigned',
+    INACTIVE: 'INACTIVE',
+    SOLD: 'SOLD',
   };
 
   componentDidMount() {
@@ -59,6 +59,8 @@ class PoshUsers extends Component {
     this.props.addPoshUser({ email, password });
     this.setState({ currentPage: 1, search: '' });
   };
+
+  handleFilter = option;
 
   render() {
     const { search, pageSize, show, currentPage, statusFilter } = this.state;
@@ -110,7 +112,15 @@ class PoshUsers extends Component {
           filterOptions={filterOptions}
           statusFilter={statusFilter}
           children={
-            <AddButton message="Add Posh User" onClick={this.handleOpen} />
+            ((<AddButton message="Add Posh User" onClick={this.handleOpen} />),
+            (
+              <Select
+                options={filterOptions}
+                onChange={onFilter}
+                value={statusFilter}
+                name="posh-user-status-filter"
+              />
+            ))
           }
         />
         <hr className="mt-2" />
