@@ -1,9 +1,19 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import SearchBar from './searchBar';
+import Select from './select';
 
 const HeadingBar = (props) => {
-  const { title, children, searchPlaceholder, search, onSearch } = props;
+  const {
+    title,
+    children,
+    searchPlaceholder,
+    search,
+    onSearch,
+    filterOptions,
+    onFilter,
+    statusFilter,
+  } = props;
 
   return (
     <React.Fragment>
@@ -15,6 +25,12 @@ const HeadingBar = (props) => {
           {children}
         </Col>
         <Col xs={12} md={5} lg={4}>
+          <Select
+            options={filterOptions}
+            onChange={onFilter}
+            value={statusFilter}
+            name="posh-user-status-filter"
+          />
           <SearchBar
             onSearch={onSearch}
             value={search}

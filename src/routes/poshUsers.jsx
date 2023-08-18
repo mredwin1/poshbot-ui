@@ -17,6 +17,7 @@ class PoshUsers extends Component {
     pageSize: 12,
     currentPage: 1,
     show: false,
+    statusFilter: '',
   };
 
   componentDidMount() {
@@ -53,12 +54,18 @@ class PoshUsers extends Component {
   };
 
   render() {
-    const { search, pageSize, show, currentPage } = this.state;
+    const { search, pageSize, show, currentPage, statusFilter } = this.state;
 
     const { poshUsers: allPoshUsers, poshUserAdded } = this.props;
+    const filterOptions = {
+      '': '',
+      active: 'ACTIVE',
+      inactive: 'INACTIVE',
+      sold: 'SOLD',
+    };
 
     const filtered = search
-      ? _.filter(
+      ? _.statusFilter(
           allPoshUsers,
           (u) =>
             u.email.toLowerCase().includes(search.toLowerCase()) ||
@@ -97,6 +104,9 @@ class PoshUsers extends Component {
           searchPlaceholder="Search by Username/Email"
           title={`${filtered.length} Posh Users`}
           onSearch={this.handleSearch}
+          onFilter={this.handleFilter}
+          filterOptions={filterOptions}
+          statusFilter={statusFilter}
           children={
             <AddButton message="Add Posh User" onClick={this.handleOpen} />
           }
