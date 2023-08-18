@@ -4,21 +4,28 @@ import Options from './options';
 
 const Select = (props) => {
   const { options, onChange, value, name, label, errors } = props;
+
+  // Check if errors is undefined and set isInvalid accordingly
+  const isInvalid = errors && errors[name] ? true : false;
+
   return (
     <>
-      <FormLabel>{label}</FormLabel>
+      {label && <FormLabel>{label}</FormLabel>}
+
       <FormSelect
         onChange={onChange}
         name={name}
         value={value}
-        isInvalid={errors[name] ? true : false}
+        isInvalid={isInvalid}
         required
       >
         <Options options={options} />
       </FormSelect>
-      <Form.Control.Feedback type="invalid">
-        {errors[name]}
-      </Form.Control.Feedback>
+      {errors && (
+        <Form.Control.Feedback type="invalid">
+          {errors[name]}
+        </Form.Control.Feedback>
+      )}
     </>
   );
 };
