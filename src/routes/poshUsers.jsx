@@ -22,7 +22,7 @@ class PoshUsers extends Component {
 
   statusFilterMappings = {
     '': '',
-    ACTIVE: 'Unassigned',
+    ACTIVE: 'ACTIVE',
     INACTIVE: 'INACTIVE',
     SOLD: 'SOLD',
   };
@@ -112,15 +112,7 @@ class PoshUsers extends Component {
           filterOptions={filterOptions}
           statusFilter={statusFilter}
           children={
-            ((<AddButton message="Add Posh User" onClick={this.handleOpen} />),
-            (
-              <Select
-                options={filterOptions}
-                onChange={onFilter}
-                value={statusFilter}
-                name="posh-user-status-filter"
-              />
-            ))
+            <AddButton message="Add Posh User" onClick={this.handleOpen} />
           }
         />
         <hr className="mt-2" />
