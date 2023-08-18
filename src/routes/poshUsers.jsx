@@ -63,7 +63,7 @@ class PoshUsers extends Component {
       inactive: 'INACTIVE',
       sold: 'SOLD',
     };
-    // Test
+
     const filtered = search
       ? _.statusFilter(
           allPoshUsers,
