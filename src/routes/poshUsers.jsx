@@ -120,7 +120,7 @@ class PoshUsers extends Component {
         </Modal>
         <HeadingBar
           searchPlaceholder="Search by Username/Email"
-          title={`${filtered.length} Posh Users`}
+          title={`${filteredByStatus.length} Posh Users`}
           onSearch={this.handleSearch}
           onFilter={this.handleStatusFilter}
           filterOptions={filterOptions}
@@ -132,7 +132,7 @@ class PoshUsers extends Component {
         <hr className="mt-2" />
         <Grid
           currentPage={currentPage}
-          itemsCount={filtered.length}
+          itemsCount={filteredByStatus.length}
           pageSize={pageSize}
           onPageChange={this.handlePageChange}
           children={poshUsers.map((poshUser) => (
