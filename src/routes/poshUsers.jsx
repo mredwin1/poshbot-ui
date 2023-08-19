@@ -60,8 +60,8 @@ class PoshUsers extends Component {
     this.setState({ currentPage: 1, search: '' });
   };
 
-  handleStatusFilter = (statusFilter) => {
-    console.log(statusFilter);
+  handleStatusFilter = (event) => {
+    const statusFilter = event.target.value;
     this.setState({ statusFilter });
   };
 
