@@ -24,7 +24,7 @@ const HeadingBar = (props) => {
         <Col xs={3} md={1} className="text-end">
           {children}
         </Col>
-        <Col xs={12} md={5} lg={4}>
+        <Col xs={12} md={3} lg={2}>
           {filterOptions && filterOptions.length > 0 && (
             <Select
               options={filterOptions}
@@ -33,6 +33,8 @@ const HeadingBar = (props) => {
               name="posh-user-status-filter"
             />
           )}
+        </Col>
+        <Col xs={12} md={5} lg={4}>
           <SearchBar
             onSearch={onSearch}
             value={search}
