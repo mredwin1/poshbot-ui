@@ -18,7 +18,7 @@ const HeadingBar = (props) => {
   return (
     <React.Fragment>
       <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Col xs={5} md={3} lg={6}>
+        <Col xs={5} md={3} lg={5}>
           <h1>{title}</h1>
         </Col>
         <Col xs={3} md={1} className="text-end">
