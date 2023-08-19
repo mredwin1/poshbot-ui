@@ -18,13 +18,13 @@ const HeadingBar = (props) => {
   return (
     <React.Fragment>
       <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Col xs={9} md={6} lg={7}>
+        <Col xs={5} md={3} lg={7}>
           <h1>{title}</h1>
         </Col>
         <Col xs={3} md={1} className="text-end">
           {children}
         </Col>
-        <Col xs={12} md={3} lg={2}>
+        <Col xs={4} md={3} lg={2}>
           {filterOptions && filterOptions.length > 0 && (
             <Select
               options={filterOptions}
