@@ -60,21 +60,36 @@ class PoshUsers extends Component {
     this.setState({ currentPage: 1, search: '' });
   };
 
+  handleStatusFilter = (statusFilter) => {
+    this.setState({ statusFilter });
+  };
+
   render() {
     const { search, pageSize, show, currentPage, statusFilter } = this.state;
 
     const { poshUsers: allPoshUsers, poshUserAdded } = this.props;
     const filterOptions = Object.keys(this.statusFilterMappings);
 
+    // Apply search and status filtering
     const filtered = search
-      ? _.statusFilter(
+      ? _.filter(
           allPoshUsers,
           (u) =>
             u.email.toLowerCase().includes(search.toLowerCase()) ||
             u.username.toLowerCase().includes(search.toLowerCase())
         )
       : allPoshUsers;
-    const poshUsers = paginate(filtered, currentPage, pageSize);
+
+    const filteredByStatus =
+      statusFilter === 'INACTIVE'
+        ? filtered.filter((u) => u.status === 'Inactive')
+        : statusFilter === 'ACTIVE'
+        ? filtered.filter((u) => u.status === 'Assigned')
+        : statusFilter === 'SOLD'
+        ? filtered.filter((u) => u.sold_listings > 0)
+        : filtered;
+
+    const poshUsers = paginate(filteredByStatus, currentPage, pageSize);
     return (
       <React.Fragment>
         <Modal show={show} onHide={this.handleClose} centered>
@@ -106,7 +121,7 @@ class PoshUsers extends Component {
           searchPlaceholder="Search by Username/Email"
           title={`${filtered.length} Posh Users`}
           onSearch={this.handleSearch}
-          onFilter={this.handleFilter}
+          onFilter={this.handleStatusFilter}
           filterOptions={filterOptions}
           statusFilter={statusFilter}
           children={
