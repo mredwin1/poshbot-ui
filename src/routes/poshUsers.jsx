@@ -61,6 +61,7 @@ class PoshUsers extends Component {
   };
 
   handleStatusFilter = (statusFilter) => {
+    console.log(statusFilter);
     this.setState({ statusFilter });
   };
 
