@@ -10,7 +10,7 @@ const PoshUserBody = (props) => {
     censored_email_password,
     censored_email_imap_password,
     username,
-    password,
+    censored_password,
     phone_number,
     status,
     sold_listings,
@@ -43,7 +43,7 @@ const PoshUserBody = (props) => {
         <b>Username:</b> {username}
       </div>
       <div>
-        <b>Password:</b> {password}
+        <b>Password:</b> {censored_password}
       </div>
       <div>
         <b>Status:</b> {status}
