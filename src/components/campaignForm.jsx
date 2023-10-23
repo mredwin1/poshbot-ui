@@ -49,7 +49,15 @@ class CampaignForm extends Component {
     const listingsFiltered = listings.filter(
       (listing) => listing.assigned === false
     );
-    const poshUserOptions = poshUsers.filter(
+
+    const modifiedPoshUsers = poshUsers.map((poshUser) => {
+      const label = poshUser.is_registered
+        ? `${poshUser.username} *NEW*`
+        : poshUser.username;
+      return { ...poshUser, label };
+    });
+
+    const poshUserOptions = modifiedPoshUsers.filter(
       (poshUser) => poshUser.status === 'Unassigned'
     );
 
@@ -271,7 +279,7 @@ class CampaignForm extends Component {
             <Typeahead
               clearButton
               options={poshUserOptions}
-              labelKey="username"
+              labelKey="label"
               placeholder="Choose a Posh User..."
               id="posh-user-select"
               onChange={this.handlePoshUserSelect}
