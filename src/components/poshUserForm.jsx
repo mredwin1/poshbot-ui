@@ -38,6 +38,10 @@ class PoshUserForm extends Component {
       if (generate && quantity) {
         let payload = [];
 
+        for (let i = 0; i < quantity; i++) {
+          payload.push({ user: 'user' });
+        }
+
         this.props.generatePoshUser(payload);
       } else if (generate && customEmail) {
         this.props.generatePoshUser([this.state.newPoshUser]);
