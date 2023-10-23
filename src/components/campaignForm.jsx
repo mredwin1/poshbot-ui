@@ -52,8 +52,8 @@ class CampaignForm extends Component {
 
     const modifiedPoshUsers = poshUsers.map((poshUser) => {
       const label = poshUser.is_registered
-        ? `${poshUser.username} *NEW*`
-        : poshUser.username;
+        ? poshUser.username
+        : `${poshUser.username} *NEW*`;
       return { ...poshUser, label };
     });
 
