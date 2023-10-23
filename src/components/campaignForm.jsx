@@ -57,9 +57,9 @@ class CampaignForm extends Component {
       return { ...poshUser, label };
     });
 
-    const poshUserOptions = modifiedPoshUsers.filter(
-      (poshUser) => poshUser.status === 'Unassigned'
-    );
+    const poshUserOptions = modifiedPoshUsers
+      .filter((poshUser) => poshUser.status === 'Unassigned')
+      .sort((a, b) => (a.is_registered && !b.is_registered ? 1 : -1));
 
     const listingOptions = listingsFiltered.map((listing) => ({
       ...listing,
