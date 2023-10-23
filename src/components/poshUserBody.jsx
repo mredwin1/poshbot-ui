@@ -6,9 +6,9 @@ const PoshUserBody = (props) => {
     id,
     first_name,
     last_name,
-    email,
-    email_password,
-    email_imap_password,
+    censored_email,
+    censored_email_password,
+    censored_email_imap_password,
     username,
     password,
     phone_number,
@@ -55,14 +55,15 @@ const PoshUserBody = (props) => {
         <b>Sales:</b> {sold_listings}
       </div>
       <div>
-        <b>Email:</b> {email ? email : 'None'}
+        <b>Email:</b> {censored_email ? censored_email : 'None'}
       </div>
       <div>
-        <b>Email Password:</b> {email_password ? email_password : 'None'}
+        <b>Email Password:</b>{' '}
+        {censored_email_password ? censored_email_password : 'None'}
       </div>
       <div>
         <b>Email IMAP Password:</b>{' '}
-        {email_imap_password ? email_imap_password : 'None'}
+        {censored_email_imap_password ? censored_email_imap_password : 'None'}
       </div>
     </React.Fragment>
   );

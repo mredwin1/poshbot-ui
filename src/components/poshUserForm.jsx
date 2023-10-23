@@ -9,7 +9,6 @@ class PoshUserForm extends Component {
   state = {
     newPoshUser: {
       quantity: 1,
-      password: '',
     },
     generate: true,
     customEmail: false,
@@ -21,15 +20,6 @@ class PoshUserForm extends Component {
     quantity: Joi.number().min(1).required().label('Quantity'),
     email: Joi.string().required().label('Email'),
     username: Joi.string().required().max(15).label('Username'),
-    password: Joi.string()
-      .min(6)
-      .regex(/[!@#$%^&*_0-9]/, 'special character or number')
-      .label('Password')
-      .options({
-        language: {
-          any: { allowOnly: 'must contain a number or special character' },
-        },
-      }),
   };
 
   handleSubmit = (e) => {
@@ -43,14 +33,10 @@ class PoshUserForm extends Component {
     this.setState({ validated, errors });
     if (validated) {
       const { generate, customEmail } = this.state;
-      let { password, quantity } = this.state.newPoshUser;
+      let { quantity } = this.state.newPoshUser;
 
       if (generate && quantity) {
         let payload = [];
-
-        for (let i = 0; i < quantity; i++) {
-          payload.push({ password });
-        }
 
         this.props.generatePoshUser(payload);
       } else if (generate && customEmail) {
@@ -63,7 +49,6 @@ class PoshUserForm extends Component {
       this.setState({
         newPoshUser: {
           quantity: '',
-          password: '',
         },
         generate: true,
         customEmail: false,
@@ -218,20 +203,6 @@ class PoshUserForm extends Component {
           />
           <Form.Control.Feedback type="invalid">
             {identifierErrors}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="text"
-            name="password"
-            onChange={this.handleChange}
-            required
-            value={newPoshUser.password}
-            isInvalid={errors.password ? true : false}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.password}
           </Form.Control.Feedback>
         </Form.Group>
       </Form>
