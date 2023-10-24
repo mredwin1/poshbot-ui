@@ -50,14 +50,7 @@ class CampaignForm extends Component {
       (listing) => listing.assigned === false
     );
 
-    const modifiedPoshUsers = poshUsers.map((poshUser) => {
-      const label = poshUser.is_registered
-        ? poshUser.username
-        : `${poshUser.username} *NEW*`;
-      return { ...poshUser, label };
-    });
-
-    const poshUserOptions = modifiedPoshUsers
+    const poshUserOptions = poshUsers
       .filter((poshUser) => poshUser.status === 'Unassigned')
       .sort((a, b) => (a.is_registered && !b.is_registered ? 1 : -1));
 
@@ -232,9 +225,6 @@ class CampaignForm extends Component {
     const { newCampaign, errors, poshUserOptions, listingOptions } = this.state;
     const modeOptions = Object.keys(this.modeOptionsMapping);
 
-    console.log(poshUserOptions);
-    console.log(listingOptions);
-
     return (
       <Form id="listingForm" onSubmit={this.handleSubmit} validated={false}>
         <Row style={{ justifyContent: 'end' }}>
@@ -283,7 +273,7 @@ class CampaignForm extends Component {
             <Typeahead
               clearButton
               options={poshUserOptions}
-              labelKey="label"
+              labelKey="username"
               placeholder="Choose a Posh User..."
               id="posh-user-select"
               onChange={this.handlePoshUserSelect}
