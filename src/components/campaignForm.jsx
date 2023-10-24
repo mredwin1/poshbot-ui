@@ -231,6 +231,10 @@ class CampaignForm extends Component {
   render() {
     const { newCampaign, errors, poshUserOptions, listingOptions } = this.state;
     const modeOptions = Object.keys(this.modeOptionsMapping);
+
+    console.log(poshUserOptions);
+    console.log(listingOptions);
+
     return (
       <Form id="listingForm" onSubmit={this.handleSubmit} validated={false}>
         <Row style={{ justifyContent: 'end' }}>
