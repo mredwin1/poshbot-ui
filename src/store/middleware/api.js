@@ -11,7 +11,7 @@ const api =
     const { user } = getState();
     const baseURL =
       process.env.NODE_ENV === 'production'
-        ? 'https://turtleswags.com'
+        ? 'https://api.melondova.com'
         : 'http://localhost:8000';
     if (user.accessToken) {
       axios.defaults.headers.common[
